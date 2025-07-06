@@ -40,7 +40,32 @@ The library exposes CSS custom properties for colors, spacing and typography. De
 
 ## Repository Layout
 
-Currently this repository only contains documentation. Future commits will add the source for each component under a `/components` directory. Tests and a demo site will also be included.
+The `components` directory contains the source for each custom element. You can
+import them individually or via `components/index.js` which re-exports every
+component. Available modules include:
+
+- `button.js`
+- `text-input.js`
+- `select.js`
+- `checkbox.js`
+- `radio.js`
+- `switch.js`
+- `dialog.js`
+- `snackbar.js`
+- `tabs.js`
+- `card.js`
+- `tooltip.js`
+- `progress.js`
+- `slider.js`
+
+Importing from `index.js` looks like this:
+
+```
+import { EUIButton, EUITextInput } from './components/index.js';
+```
+
+Each component is an ES module that automatically registers a custom element
+when imported.
 
 ## Contributing
 

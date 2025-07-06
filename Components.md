@@ -1,5 +1,8 @@
 ## Basic Components
 
+The following components are implemented under the `/components` directory. Each
+is distributed as an ES module that registers a custom element on import.
+
 Button – Basic button with variant styles (raised, flat, icon) and built-in theming hooks.
 
 Text Input – Standard single-line input with label support, validation states, and icons.
