@@ -15,6 +15,23 @@ export class EUIButton extends HTMLElement {
         color: var(--eui-on-primary, #fff);
         cursor: pointer;
       }
+
+      :host([variant="text"]) button {
+        background: transparent;
+        color: var(--eui-primary, #6200ee);
+      }
+
+      :host([variant="outlined"]) button {
+        background: transparent;
+        color: var(--eui-primary, #6200ee);
+        border: 1px solid var(--eui-primary, #6200ee);
+      }
+
+      :host([variant="icon"]) button {
+        background: transparent;
+        padding: 0.25em;
+        border-radius: 50%;
+      }
     `;
     shadow.appendChild(style);
     shadow.appendChild(button);

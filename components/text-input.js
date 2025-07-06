@@ -14,7 +14,23 @@ export class EUITextInput extends HTMLElement {
     style.textContent = `
       :host { display: block; }
       label { display: flex; flex-direction: column; font: inherit; gap: 0.25em; }
-      input { font: inherit; padding: 0.5em; border: 1px solid #ccc; border-radius: 4px; }
+      input {
+        font: inherit;
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: var(--eui-input-bg, white);
+      }
+
+      :host([variant="filled"]) input {
+        background: #f5f5f5;
+        border: none;
+      }
+
+      :host([variant="outlined"]) input {
+        border: 1px solid #ccc;
+        background: var(--eui-input-bg, white);
+      }
     `;
 
     shadow.appendChild(style);
