@@ -19,11 +19,30 @@
     display: flex;
     gap: 1em;
   }
+  
+  nav a { text-decoration: none; margin-right: 0.5em; color: var(--eui-primary, #6200ee); }
+  nav a:hover { text-decoration: underline;
+    
 </style>
 <script type="module" src="./components/index.js"></script>
 </head>
 <body>
 <h1>Elemental UI Components</h1>
+  
+<nav>
+  <a href="#buttons">Buttons</a>
+  <a href="#text-input">Text Input</a>
+  <a href="#select">Select</a>
+  <a href="#checks">Checkbox & Radio</a>
+  <a href="#switch">Switch</a>
+  <a href="#dialog">Dialog</a>
+  <a href="#snackbar">Snackbar</a>
+  <a href="#tabs">Tabs</a>
+  <a href="#card">Card</a>
+  <a href="#tooltip">Tooltip</a>
+  <a href="#progress">Progress</a>
+  <a href="#slider">Slider</a>
+</nav>
 
 <fieldset>
 <legend>Theme</legend>
@@ -34,6 +53,7 @@
 </div>
 </fieldset>
 
+<section id="buttons">
 <section>
   <h2>Buttons</h2>
   <eui-button id="defaultBtn">Default Button</eui-button>
@@ -42,6 +62,7 @@
   <eui-button variant="icon">&#x2764;</eui-button>
 </section>
 
+<section id="text-input">
 <section>
   <h2>Text Input</h2>
   <eui-text-input>
@@ -49,6 +70,7 @@
   </eui-text-input>
 </section>
 
+<section id="select">
 <section>
   <h2>Select</h2>
   <eui-select>
@@ -57,6 +79,7 @@
   </eui-select>
 </section>
 
+<section id="checks">
 <section>
   <h2>Checkbox & Radio</h2>
   <eui-checkbox>Accept</eui-checkbox>
@@ -65,11 +88,13 @@
   <eui-radio name="r1">B</eui-radio>
 </section>
 
+<section id="switch">
 <section>
   <h2>Switch</h2>
   <eui-switch></eui-switch>
 </section>
 
+<section id="dialog">
 <section>
   <h2>Dialog</h2>
   <eui-button onclick="document.getElementById('dlg').open()">Open Dialog</eui-button>
@@ -79,12 +104,14 @@
   </eui-dialog>
 </section>
 
+<section id="snackbar">
 <section>
   <h2>Snackbar</h2>
   <eui-button onclick="document.getElementById('sb').show()">Show Snackbar</eui-button>
   <eui-snackbar id="sb">Saved!</eui-snackbar>
 </section>
 
+<section id="tabs">
 <section>
   <h2>Tabs</h2>
   <eui-tabs>
@@ -95,6 +122,7 @@
   </eui-tabs>
 </section>
 
+<section id="card">
 <section>
   <h2>Card</h2>
   <eui-card>
@@ -104,6 +132,7 @@
   </eui-card>
 </section>
 
+<section id="tooltip">
 <section>
   <h2>Tooltip</h2>
   <eui-tooltip text="Tooltip text">
@@ -111,11 +140,13 @@
   </eui-tooltip>
 </section>
 
+<section id="progress">
 <section>
   <h2>Progress</h2>
   <eui-progress id="prog" value="50"></eui-progress>
 </section>
 
+<section id="slider">
 <section>
   <h2>Slider</h2>
   <eui-slider value="30"></eui-slider>
