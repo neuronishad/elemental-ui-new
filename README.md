@@ -38,6 +38,10 @@ The library exposes CSS custom properties for colors, spacing and typography. De
 }
 ```
 
+## Demo
+
+Open `index.html` in a browser to see all components in action. Use the color pickers to adjust theme colors.
+
 ## Repository Layout
 
 The `components` directory contains the source for each custom element. You can
