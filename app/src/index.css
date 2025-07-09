@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   font-family: Arial, sans-serif;
   padding: 0;
@@ -9,10 +13,7 @@ fieldset {
   padding: 1em;
 }
 
-.controls {
-  display: flex;
-  gap: 1em;
-}
+
 
 nav a {
   text-decoration: none;
