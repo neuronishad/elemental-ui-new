@@ -43,7 +43,7 @@ export default function App() {
 
       <Section id="buttons">
         <eui-button id="defaultBtn" label="Default Button"></eui-button>
-        <eui-button variant="text" label="Text Button"></eui-button>
+        <eui-button variant="contained" label="Contained Button"></eui-button>
         <eui-button variant="outlined" label="Outlined Button"></eui-button>
         <eui-button variant="icon" icon="❤" label="Like"></eui-button>
       </Section>
