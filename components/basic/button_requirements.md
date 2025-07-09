@@ -113,3 +113,4 @@ A flexible, accessible button component that supports multiple visual variants, 
 
 - Ripple animation should be lightweight (pure CSS + JS).
 - All icons are assumed to be handled via inline SVG.
+- Keyboard activation triggers the same ripple effect as pointer clicks.
