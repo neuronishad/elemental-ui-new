@@ -119,3 +119,5 @@ Follow this structure:
 --eui-color-[role]-container
 --eui-color-on-[role]
 ```
+
+There are no automated checks for this directory
