@@ -134,3 +134,100 @@ Explain how this component adapts to different screen sizes or layouts.
 ## 10. Notes
 
 Optional notes for special cases, design deviations, or implementation warnings.
+
+## Coding Guidelines
+
+You are a senior frontend engineer and expert in Web Components.
+
+TASK:  
+I will give you a custom element built using plain HTML, JS, and CSS (with Shadow DOM). Your job is to **audit and refactor** it so that it adheres to all of the following best practices:
+
+---
+
+🔧 **1. Attribute ↔ Property Synchronization**  
+• For every attribute listed in `observedAttributes`, define a matching JS property with both `get` and `set`.  
+• When the property is updated, reflect the change to the attribute.  
+• When the attribute is changed, reflect it to the property.
+
+---
+
+🧠 **2. Efficient attributeChangedCallback**  
+• Accept the standard parameters: `(name, oldValue, newValue)`.  
+• Only trigger re-renders or logic if `oldValue !== newValue`.
+
+---
+
+♻️ **3. Safe Rendering & DOM Updates**  
+• Avoid using `this.shadowRoot.innerHTML = ...` repeatedly—this clears listeners.  
+• Use:
+  – `template.cloneNode(true)`  
+  – or a minimal diffing/rendering strategy (e.g., lit-html, uhtml, or manual patching).  
+• Preserve DOM nodes and event listeners where possible.
+
+---
+
+🎯 **4. Slots & Content Injection**  
+• Replace fixed content attributes (like `label`, `icon`, `value`, etc.) with named `<slot>` elements.  
+• Example: `<slot name="icon">default-icon</slot>`.  
+• Let developers inject arbitrary markup (icons, spans, etc.) cleanly.  
+• Always provide fallback slot content where useful.
+
+---
+
+🎨 **5. Theming with CSS Variables**  
+• All colors, spacing, shadows, borders, etc. must be defined using CSS variables (e.g., `var(--component-color, fallback)`).  
+• Encapsulate all styles within Shadow DOM.  
+• Ensure default fallbacks are present.
+
+---
+
+♿ **6. Accessibility Compliance**  
+• Use semantic HTML elements wherever possible (`<button>`, `<input>`, `<label>`, etc.).  
+• For non-semantic roles (like `<div>`), add `role`, `tabindex`, and keyboard handlers (`Enter` / `Space`).  
+• Reflect `disabled` state via:
+  – `aria-disabled="true"`  
+  – `tabindex="-1"`  
+  – preventing all interaction (pointer + keyboard)
+
+---
+
+✨ **7. Animation / Interactions (if applicable)**  
+• For visual effects like ripples or transitions:
+  – Ensure they don't stack up or leak (e.g., multiple ripples on long press).  
+  – Clean up DOM nodes (`animationend` or `transitionend`).  
+• Avoid layout thrashing or heavy reflows during animation.
+
+---
+
+🔐 **8. Security & Robustness**  
+• Never use `innerHTML` with user-supplied or attribute data—use `textContent` instead.  
+• Avoid inline JS or unsafe injection.  
+• Ensure graceful fallback when missing attributes or malformed input.
+
+---
+
+🧪 **9. Output Testing Checklist (Include this in your reply)**  
+After rewriting the component, give me a checklist like this:
+
+| Check                          | Pass/Fail | Notes                              |
+|-------------------------------|-----------|------------------------------------|
+| Property ↔ Attribute Sync     | ✅ / ❌   | ...                                |
+| Efficient Rendering           | ✅ / ❌   | ...                                |
+| Slots Used Where Appropriate  | ✅ / ❌   | ...                                |
+| Theming via CSS Vars          | ✅ / ❌   | ...                                |
+| Accessibility (a11y)          | ✅ / ❌   | ...                                |
+| Safe Ripple / Animation Logic | ✅ / ❌   | If applicable                      |
+| Uses textContent over HTML    | ✅ / ❌   | ...                                |
+
+---
+
+🧾 **10. Deliverables**  
+Return the following:
+1. ✅ Fully refactored Web Component code  
+2. 📋 A short changelog summarizing what was fixed  
+3. ✅ The testing checklist filled out
+
+NOTE: This instruction is **universal** and should be applied to any Web Component (buttons, inputs, sliders, etc.) using Shadow DOM and native JS.
+
+Now wait for the component code before continuing.
+
