@@ -30,13 +30,13 @@ export default function App() {
         <legend>Theme</legend>
         <div className="controls">
           <label>
-            Primary Color <input type="color" data-token="eui-primary" defaultValue="#6200ee" />
+            Primary Color <input type="color" data-token="eui-color-primary-base" defaultValue="#6200ee" />
           </label>
           <label>
-            On Primary <input type="color" data-token="eui-on-primary" defaultValue="#ffffff" />
+            On Primary <input type="color" data-token="eui-color-on-primary" defaultValue="#ffffff" />
           </label>
           <label>
-            Input Background <input type="color" data-token="eui-input-bg" defaultValue="#ffffff" />
+            Surface <input type="color" data-token="eui-color-surface" defaultValue="#ffffff" />
           </label>
         </div>
       </fieldset>
