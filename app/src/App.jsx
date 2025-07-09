@@ -263,6 +263,7 @@ export default function App() {
               <span>On Primary</span>
               <input id="onPrimaryColor" data-color="on-primary" type="color" defaultValue={contrast(DEFAULTS.primary)} disabled />
             </label>
+            <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">
               <span>Secondary</span>
               <input id="secondaryColor" data-color="secondary" type="color" defaultValue={DEFAULTS.secondary} />
@@ -287,6 +288,7 @@ export default function App() {
               <span>On Secondary</span>
               <input id="onSecondaryColor" data-color="on-secondary" type="color" defaultValue={contrast(DEFAULTS.secondary)} disabled />
             </label>
+            <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">
               <span>Surface</span>
               <input id="surfaceColor" data-color="surface" type="color" defaultValue={DEFAULTS.surface} />
@@ -299,6 +301,7 @@ export default function App() {
               <span>On Surface</span>
               <input id="onSurfaceColor" data-color="on-surface" type="color" defaultValue={contrast(DEFAULTS.surface)} disabled />
             </label>
+            <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">
               <span>Background</span>
               <input id="backgroundColor" data-color="background" type="color" defaultValue={DEFAULTS.background} disabled />
@@ -307,6 +310,7 @@ export default function App() {
               <span>On Background</span>
               <input id="onBackgroundColor" data-color="on-background" type="color" defaultValue={contrast(DEFAULTS.background)} disabled />
             </label>
+            <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">
               <span>Outline</span>
               <input id="outlineColor" data-color="outline" type="color" defaultValue={DEFAULTS.outline} disabled />
@@ -335,6 +339,7 @@ export default function App() {
               <span>On Error</span>
               <input id="onErrorColor" data-color="on-error" type="color" defaultValue={contrast(DEFAULTS.error)} disabled />
             </label>
+            <hr className="my-2 border-t" />
 
             <label className="flex items-center justify-between gap-2">
               <span>Warning</span>
@@ -360,6 +365,7 @@ export default function App() {
               <span>On Warning</span>
               <input id="onWarningColor" data-color="on-warning" type="color" defaultValue={contrast(DEFAULTS.warning)} disabled />
             </label>
+            <hr className="my-2 border-t" />
 
             <label className="flex items-center justify-between gap-2">
               <span>Success</span>
@@ -385,6 +391,7 @@ export default function App() {
               <span>On Success</span>
               <input id="onSuccessColor" data-color="on-success" type="color" defaultValue={contrast(DEFAULTS.success)} disabled />
             </label>
+            <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">
               <span>Disabled</span>
               <input id="disabledColor" data-color="disabled" type="color" defaultValue={DEFAULTS.disabled} disabled />
@@ -393,6 +400,7 @@ export default function App() {
               <span>On Disabled</span>
               <input id="onDisabledColor" data-color="on-disabled" type="color" defaultValue={contrast(DEFAULTS.disabled)} disabled />
             </label>
+            <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">
               <span>Elevation 0</span>
               <input id="elevation0Color" data-color="elevation-0" type="color" defaultValue={DEFAULTS['elevation-0']} disabled />
@@ -417,11 +425,8 @@ export default function App() {
         </div>
       </aside>
 
-      <main className="demo-content">
+      <main className="demo-content flex-1">
         <h1>Elemental UI Components</h1>
-        <nav>
-          <a href="#buttons">Buttons</a>
-        </nav>
 
         <Section id="buttons">
           <eui-button id="defaultBtn" label="Default Button"></eui-button>
@@ -430,6 +435,9 @@ export default function App() {
           <eui-button variant="icon" icon="❤" label="Like"></eui-button>
         </Section>
       </main>
+      <nav className="nav-panel w-56">
+        <a href="#buttons">Buttons</a>
+      </nav>
     </div>
   )
 }
