@@ -1,123 +1,137 @@
-# AGENTS
+# 🎨 Elemental UI Theme Tokens
 
-This directory contains theme.scss file which defines the theme structure to use with Elemental UI components. In Future it will contain other themes for quick use.
+A structured overview of all CSS variables used in the Elemental UI theme system.  
+Each token follows the format:
 
-# 🎨 theme-guide.md – Elemental UI Theme System
+```
+--eui-color-[semantic-role]-[tone]
+```
 
-A concise reference for using and extending the Elemental UI theme system via CSS variables.
+Use these variables in component styles for consistency across themes.
 
 ---
 
-## 🎨 Naming Convention
+## 🔹 Primary & Secondary Roles
 
-All theme variables follow:
-
-```
---eui-color-[semantic]-[tone]
-```
-
-**Examples**:
-- `--eui-color-primary-base`
-- `--eui-color-surface-variant`
-- `--eui-color-on-primary`
-
----
-
-## 🧱 Semantic Categories
-
-### 1. Primary / Secondary
 Used for main and accent actions.
 
-| Token                        | Purpose                    |
-|-----------------------------|----------------------------|
-| `--eui-color-primary-base`  | Default primary color      |
-| `--eui-color-primary-hover` | On hover                   |
-| `--eui-color-primary-active`| On press/click             |
-| `--eui-color-primary-container` | Filled bg use (chips/cards) |
-| `--eui-color-primary-disabled` | Muted version             |
-| `--eui-color-on-primary`    | Text/icon on primary       |
+### Primary
 
-Same structure applies to `secondary`.
+- `--eui-color-primary-base`: Default primary color  
+- `--eui-color-primary-hover`: On hover state  
+- `--eui-color-primary-active`: On active (pressed) state  
+- `--eui-color-primary-container`: For filled surfaces (e.g. chips, cards)  
+- `--eui-color-primary-disabled`: Muted state of primary  
+- `--eui-color-on-primary`: Foreground content on primary
 
----
+### Secondary (same structure as primary)
 
-### 2. Background / Surface
+- `--eui-color-secondary-base`  
+- `--eui-color-secondary-hover`  
+- `--eui-color-secondary-active`  
+- `--eui-color-secondary-container`  
+- `--eui-color-secondary-disabled`  
+- `--eui-color-on-secondary`
 
-| Token                         | Purpose                    |
-|------------------------------|----------------------------|
-| `--eui-color-background`      | App/page background        |
-| `--eui-color-surface`         | Card/dialog/etc. surfaces  |
-| `--eui-color-surface-variant`| Alternate surface tone     |
-| `--eui-color-on-background`   | Foreground on background   |
-| `--eui-color-on-surface`      | Foreground on surface      |
-
----
-
-### 3. States (Error / Success / Warning)
-
-Each includes:
-
-- `base`
-- `hover`
-- `active`
-- `container`
-- `on-*`
-
-Example:
-```scss
---eui-color-error-base
---eui-color-error-hover
---eui-color-error-container
---eui-color-on-error
+**Example Usage**:
+```css
+background: var(--eui-color-primary-base);
+color: var(--eui-color-on-primary);
 ```
 
 ---
 
-### 4. Outline / Focus / Disabled
+## 🧱 Surface & Background
 
-| Token                       | Purpose                  |
-|----------------------------|--------------------------|
-| `--eui-color-outline`       | Borders for outlines     |
-| `--eui-outline-focus`       | Focus ring (2px solid)   |
-| `--eui-color-disabled`      | Muted text/bg            |
-| `--eui-color-on-disabled`   | Foreground on disabled   |
+Used for layouts, cards, dialogs.
 
----
-
-### 5. Shadows / Elevation
-
-| Token           | Use                      |
-|----------------|--------------------------|
-| `--eui-shadow-1`| Low elevation (buttons)  |
-| `--eui-shadow-2`| Mid elevation (cards)    |
-| `--eui-shadow-3`| High elevation (dialogs) |
+- `--eui-color-background`: App background  
+- `--eui-color-on-background`: Text/icons on background  
+- `--eui-color-surface`: Default surface color (cards, sheets)  
+- `--eui-color-surface-variant`: Alternate surface color  
+- `--eui-color-on-surface`: Foreground on surface
 
 ---
 
-## 🌗 Dark Theme Support
+## ⚠️ Status Tokens (Error / Warning / Success)
 
-Create dark theme overrides using:
+Each status includes the following variants:
 
-```scss
+- `base`: Default color  
+- `hover`: On hover  
+- `active`: On press  
+- `container`: For filled usage (e.g. alerts)  
+- `on-*`: Foreground on that background
+
+### Example Tokens
+
+- `--eui-color-error-base`  
+- `--eui-color-warning-container`  
+- `--eui-color-on-success`
+
+---
+
+## 🚫 Disabled & Outline
+
+- `--eui-color-disabled`: Muted background (e.g. button)  
+- `--eui-color-on-disabled`: Foreground on disabled  
+- `--eui-color-outline`: Border color (e.g. outlined button)  
+- `--eui-outline-focus`: Focus ring (usually 2px solid)
+
+**Example Usage**:
+```css
+outline: var(--eui-outline-focus);
+color: var(--eui-color-on-disabled);
+```
+
+---
+
+## 🧊 Elevation (Box Shadows)
+
+Used to create depth in UI components.
+
+- `--eui-shadow-1`: Low elevation (e.g. buttons)  
+- `--eui-shadow-2`: Medium elevation (e.g. cards)  
+- `--eui-shadow-3`: High elevation (e.g. dialogs)
+
+**Example Usage**:
+```css
+box-shadow: var(--eui-shadow-2);
+```
+
+---
+
+## 🌘 Dark Theme Support
+
+Use `data-theme="dark"` selector to override tokens for dark mode.
+
+**Example**:
+```css
 [data-theme="dark"] {
   --eui-color-background: #121212;
   --eui-color-on-background: #ffffff;
-  ...
+  --eui-color-surface: #1e1e1e;
 }
 ```
 
 ---
 
-## 📦 Adding New Semantic Roles
+## ➕ Adding New Semantic Roles
 
-Follow this structure:
+Follow the same structure:
 
-```scss
---eui-color-[role]-base
---eui-color-[role]-hover
---eui-color-[role]-active
---eui-color-[role]-container
---eui-color-on-[role]
+- `--eui-color-[role]-base`  
+- `--eui-color-[role]-hover`  
+- `--eui-color-[role]-active`  
+- `--eui-color-[role]-container`  
+- `--eui-color-on-[role]`
+
+**Example: `info` role**:
+```css
+--eui-color-info-base
+--eui-color-info-hover
+--eui-color-info-container
+--eui-color-on-info
 ```
 
-There are no automated checks for this directory
+---
