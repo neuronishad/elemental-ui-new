@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function hexToHsl(hex) {
@@ -95,6 +95,8 @@ function Section({ id, children }) {
 }
 
 export default function App() {
+  const [tokens, setTokens] = useState({})
+
   useEffect(() => {
     const update = () => {
       const primary = document.getElementById('primaryColor').value
@@ -106,6 +108,25 @@ export default function App() {
       document.documentElement.style.setProperty('--eui-color-background', surface)
       document.documentElement.style.setProperty('--eui-color-on-background', contrast(surface))
       document.documentElement.style.setProperty('--eui-color-on-surface', contrast(surface))
+
+      setTokens({
+        '--eui-color-primary-base': primary,
+        '--eui-color-primary-hover': darken(primary, 0.1),
+        '--eui-color-primary-active': darken(primary, 0.2),
+        '--eui-color-primary-container': lighten(primary, 0.4),
+        '--eui-color-primary-disabled': lighten(primary, 0.5),
+        '--eui-color-on-primary': contrast(primary),
+        '--eui-color-secondary-base': secondary,
+        '--eui-color-secondary-hover': darken(secondary, 0.1),
+        '--eui-color-secondary-active': darken(secondary, 0.2),
+        '--eui-color-secondary-container': lighten(secondary, 0.4),
+        '--eui-color-secondary-disabled': lighten(secondary, 0.5),
+        '--eui-color-on-secondary': contrast(secondary),
+        '--eui-color-surface': surface,
+        '--eui-color-background': surface,
+        '--eui-color-on-background': contrast(surface),
+        '--eui-color-on-surface': contrast(surface),
+      })
     }
 
     update()
@@ -116,25 +137,33 @@ export default function App() {
   }, [])
 
   return (
-    <div className="demo-layout">
-      <aside className="theme-panel">
+    <div className="demo-layout flex items-start gap-8">
+      <aside className="theme-panel w-56">
         <fieldset>
           <legend>Theme</legend>
-          <div className="controls">
-            <label>
-              Primary
+          <div className="flex flex-col gap-2">
+            <label className="flex items-center justify-between gap-2">
+              <span>Primary</span>
               <input id="primaryColor" data-color="primary" type="color" defaultValue="#6200ee" />
             </label>
-            <label>
-              Secondary
+            <label className="flex items-center justify-between gap-2">
+              <span>Secondary</span>
               <input id="secondaryColor" data-color="secondary" type="color" defaultValue="#018786" />
             </label>
-            <label>
-              Surface
+            <label className="flex items-center justify-between gap-2">
+              <span>Surface</span>
               <input id="surfaceColor" data-color="surface" type="color" defaultValue="#ffffff" />
             </label>
           </div>
         </fieldset>
+        <div className="mt-4 space-y-1 text-xs">
+          {Object.entries(tokens).map(([name, value]) => (
+            <div key={name} className="flex items-center gap-2">
+              <span className="inline-block w-4 h-4 rounded" style={{ backgroundColor: value }} />
+              <code>{`${name}: ${value}`}</code>
+            </div>
+          ))}
+        </div>
       </aside>
 
       <main className="demo-content">
