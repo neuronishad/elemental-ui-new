@@ -1,3 +1,7 @@
+# Agents
+
+Use this guidelines to understand themeing for Elemental UI Components
+
 # 🎨 Elemental UI Theme Tokens
 
 A structured overview of all CSS variables used in the Elemental UI theme system.  
