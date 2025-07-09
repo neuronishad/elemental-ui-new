@@ -19,7 +19,7 @@ fieldset {
 nav a {
   text-decoration: none;
   margin-right: 0.5em;
-  color: var(--eui-primary, #6200ee);
+  color: var(--eui-color-primary-base, #6200ee);
 }
 
 nav a:hover {
