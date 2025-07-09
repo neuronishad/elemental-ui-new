@@ -42,6 +42,16 @@ The library exposes CSS custom properties for colors, spacing and typography. De
 
 Open `index.html` in a browser to see all components in action. Use the color pickers to adjust theme colors.
 
+For a React-based demo, a Vite application lives in the `app/` directory. Run it with:
+
+```bash
+cd app
+npm install
+npm run dev
+```
+
+The React app loads the Elemental UI components via `<script>` tags and lets you tweak theme colors at runtime. This replaces the old `react-demo.html` file.
+
 ## Repository Layout
 
 The `components` directory contains the source for each custom element. You can
