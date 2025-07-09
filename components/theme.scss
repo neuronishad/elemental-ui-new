@@ -1,0 +1,65 @@
+:root {
+  // PRIMARY
+  --eui-color-primary-base: #6200ee;
+  --eui-color-primary-hover: #3700b3;
+  --eui-color-primary-active: #30009c;
+  --eui-color-primary-disabled: #cbb7f0;
+  --eui-color-primary-container: #e8def8;
+  --eui-color-on-primary: #ffffff;
+
+  // SECONDARY
+  --eui-color-secondary-base: #018786;
+  --eui-color-secondary-hover: #016d6c;
+  --eui-color-secondary-active: #014a49;
+  --eui-color-secondary-container: #c8f8f6;
+  --eui-color-on-secondary: #ffffff;
+
+  // BACKGROUND & SURFACE
+  --eui-color-background: #ffffff;
+  --eui-color-on-background: #1c1b1f;
+
+  --eui-color-surface: #f5f5f5;
+  --eui-color-surface-variant: #e7e0ec;
+  --eui-color-on-surface: #1c1b1f;
+
+  // OUTLINE / BORDER
+  --eui-color-outline: rgba(0, 0, 0, 0.12);
+
+  // ERROR
+  --eui-color-error-base: #b00020;
+  --eui-color-error-hover: #8c001a;
+  --eui-color-error-active: #660015;
+  --eui-color-error-container: #fcd8df;
+  --eui-color-on-error: #ffffff;
+
+  // SUCCESS
+  --eui-color-success-base: #388e3c;
+  --eui-color-success-hover: #2e7d32;
+  --eui-color-success-active: #1b5e20;
+  --eui-color-success-container: #c8e6c9;
+  --eui-color-on-success: #ffffff;
+
+  // WARNING
+  --eui-color-warning-base: #fbc02d;
+  --eui-color-warning-hover: #f9a825;
+  --eui-color-warning-active: #f57f17;
+  --eui-color-warning-container: #fff8e1;
+  --eui-color-on-warning: #000000;
+
+  // DISABLED
+  --eui-color-disabled: rgba(0, 0, 0, 0.38);
+  --eui-color-on-disabled: rgba(0, 0, 0, 0.12);
+
+  // SHADOWS
+  --eui-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --eui-shadow-2: 0 3px 6px rgba(0, 0, 0, 0.3);
+  --eui-shadow-3: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+  // ELEVATION COLORS (used for overlays/elevated surfaces)
+  --eui-color-elevation-0: #ffffff;
+  --eui-color-elevation-1: #f7f2fa;
+  --eui-color-elevation-2: #eee7f4;
+
+  // FOCUS OUTLINE
+  --eui-outline-focus: 2px solid #6200ee;
+}
