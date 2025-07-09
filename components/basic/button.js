@@ -1,3 +1,5 @@
+import { EUIBaseElement } from './eui-base.js';
+
 const template = document.createElement('template');
 
 template.innerHTML = `
@@ -68,57 +70,48 @@ template.innerHTML = `
   </button>
 `;
 
-export class EUIButton extends HTMLElement {
+export class EUIButton extends EUIBaseElement {
   static get observedAttributes() {
-    return ['variant', 'disabled', 'label', 'icon', 'trailing-icon'];
+    return [...super.observedAttributes, 'variant', 'label', 'icon', 'trailing-icon'];
   }
 
   constructor() {
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.appendChild(template.content.cloneNode(true));
+    super(template); // injects Shadow DOM & template
 
-    this._button = shadow.querySelector('button');
-    this._iconSlot = shadow.querySelector('slot[name="icon"]');
-    this._labelSlot = shadow.querySelector('slot:not([name])');
-    this._trailingSlot = shadow.querySelector('slot[name="trailing-icon"]');
+    this._button = this._shadow.querySelector('button');
+    this._iconSlot = this._shadow.querySelector('slot[name="icon"]');
+    this._labelSlot = this._shadow.querySelector('slot:not([name])');
+    this._trailingSlot = this._shadow.querySelector('slot[name="trailing-icon"]');
 
     this.handlePointerDown = this.handlePointerDown.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this._button.addEventListener('pointerdown', this.handlePointerDown);
     this._button.addEventListener('keydown', this.handleKeyDown);
     this.render();
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback?.();
     this._button.removeEventListener('pointerdown', this.handlePointerDown);
     this._button.removeEventListener('keydown', this.handleKeyDown);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
     if (oldValue === newValue) return;
     switch (name) {
-      case 'disabled':
-        this._button.disabled = this.disabled;
-        this._button.setAttribute('aria-disabled', this.disabled);
-        break;
       case 'icon':
-        if (!this._iconSlot.assignedNodes().length) {
-          this._iconSlot.textContent = this.icon || '';
-        }
+        this._ensureSlotContent('slot[name="icon"]', this.icon);
         break;
       case 'trailing-icon':
-        if (!this._trailingSlot.assignedNodes().length) {
-          this._trailingSlot.textContent = this.trailingIcon || '';
-        }
+        this._ensureSlotContent('slot[name="trailing-icon"]', this.trailingIcon);
         break;
       case 'label':
-        if (!this._labelSlot.assignedNodes().length) {
-          this._labelSlot.textContent = this.label || '';
-        }
+        this._ensureSlotContent('slot:not([name])', this.label);
         break;
       case 'variant':
         // styles react automatically via attribute selector
@@ -135,17 +128,6 @@ export class EUIButton extends HTMLElement {
       this.removeAttribute('variant');
     } else {
       this.setAttribute('variant', val);
-    }
-  }
-
-  get disabled() {
-    return this.hasAttribute('disabled');
-  }
-  set disabled(val) {
-    if (val) {
-      this.setAttribute('disabled', '');
-    } else {
-      this.removeAttribute('disabled');
     }
   }
 
@@ -209,20 +191,9 @@ export class EUIButton extends HTMLElement {
   }
 
   render() {
-    this._button.disabled = this.disabled;
-    this._button.setAttribute('aria-disabled', this.disabled);
-
-    if (!this._iconSlot.assignedNodes().length) {
-      this._iconSlot.textContent = this.icon || '';
-    }
-
-    if (!this._labelSlot.assignedNodes().length) {
-      this._labelSlot.textContent = this.label || '';
-    }
-
-    if (!this._trailingSlot.assignedNodes().length) {
-      this._trailingSlot.textContent = this.trailingIcon || '';
-    }
+    this._ensureSlotContent('slot[name="icon"]', this.icon);
+    this._ensureSlotContent('slot:not([name])', this.label);
+    this._ensureSlotContent('slot[name="trailing-icon"]', this.trailingIcon);
   }
 }
 
