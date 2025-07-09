@@ -1,6 +1,20 @@
 #root {
+  padding: 1em;
+}
+
+.demo-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.theme-panel {
+  width: 220px;
+}
+
+.demo-content {
+  flex: 1;
   max-width: 800px;
-  margin: 0 auto;
 }
 
 section {
