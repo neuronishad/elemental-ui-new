@@ -12,135 +12,145 @@ This directory contains the source for each Elemental UI component. Every JavaSc
 
 There are currently no automated checks for this directory.
 
-## Requirements Template
+## Understanding the Requirements Template
 
-Each component will have it own requirements.md file. Refer to this file to implement or update component. Make sure the given requirements and component code are in sync and fully implemented
+Each component will have it own requirements.md file. Refer to this file to implement or update component. Make sure the given requirements and component code are in sync and fully implemented.
 
-# 🧩 Elemental UI Component Specification Template
-
-A standardized template to define each Elemental UI web component in a clear, complete, and developer-friendly way.
+This format defines the complete structure and expectations for each custom web component.  
 
 ---
 
-## 1. Component Overview
+## 1. Component Identity
 
-**Tag Name**: `<eui-[component]>`  
-**Description**:  
-_A short summary of what the component is and its general usage._
+- `tag`: Custom element tag name, e.g. `<eui-button>`
+- `description`: Short summary of what this component does
 
 ---
 
 ## 2. Variants
 
-List all visual or behavioral variants and their purposes.
+Each visual or behavioral variant should be listed.
 
-| Variant     | Description                                 |
-|-------------|---------------------------------------------|
-| `default`   | Default appearance                          |
-| `outlined`  | Has a visible border                        |
-| `contained` | Filled with color and elevation             |
+- Format:
+  - `variant-name`: Purpose or behavior of the variant
+
+**Example**:
+- `default`: Basic appearance
+- `outlined`: Has a border
+- `contained`: Filled background with elevation
 
 ---
 
 ## 3. States
 
-Define supported interaction states with visual and behavioral details.
+Describe all interaction states and their expected behavior or visuals.
 
-| State     | Description                                         |
-|-----------|-----------------------------------------------------|
-| `default` | Normal state                                        |
-| `hover`   | On mouse hover                                      |
-| `focus`   | When focused via keyboard or mouse                  |
-| `active`  | On press/click                                      |
-| `disabled`| Inactive, non-clickable state                       |
+- `default`: Base appearance
+- `hover`: On mouse hover
+- `focus`: When element is focused (keyboard/mouse)
+- `active`: On press/click
+- `disabled`: Non-interactive and visually muted
 
 ---
 
-## 4. Style Tokens
+## 4. Style Tokens (CSS Variables)
 
-List relevant CSS custom properties used from the theme:
+List of required CSS variables used by this component.
 
-```
---eui-color-primary-base  
---eui-color-on-primary  
---eui-shadow-1  
---eui-outline-focus  
-...
-```
+**Example**:
+- `--eui-color-primary-base`
+- `--eui-color-on-primary`
+- `--eui-shadow-1`
+- `--eui-outline-focus`
 
 ---
 
-## 5. Structure
+## 5. DOM Structure
 
-Show the internal layout of the component.
+### a. Usage
 
-### Example Usage
+Provide a usage snippet for reference.
+
 ```html
-<eui-button variant="contained" icon="add">Add</eui-button>
+<eui-[component] variant="contained">Label</eui-[component]>
 ```
 
-### Internal DOM (Shadow DOM)
+### b. Shadow DOM Layout
+
+Show internal structure of the component.
+
 ```html
-<button>
+<element-root>
   <span class="icon leading"></span>
-  <span class="label">Add</span>
+  <span class="label">Label</span>
   <span class="icon trailing"></span>
   <span class="ripple"></span>
-</button>
+</element-root>
 ```
 
 ---
 
 ## 6. Attributes / Properties
 
-| Attribute       | Type     | Default   | Description                      |
-|------------------|----------|-----------|----------------------------------|
-| `variant`        | string   | `"text"`  | Visual style of the component    |
-| `disabled`       | boolean  | `false`   | Disable interaction              |
-| `icon`           | string   | `null`    | Name of leading icon (optional)  |
-| `trailing-icon`  | string   | `null`    | Name of trailing icon (optional) |
-| `label`          | string   | required  | Visible label text               |
+List supported attributes and their behaviors.
+
+- Format:
+  - `attribute-name` (type, default) – description
+
+**Example**:
+- `variant` (string, "text") – Visual variant of the component  
+- `disabled` (boolean, false) – Prevents interaction  
+- `icon` (string, null) – Leading icon  
+- `trailing-icon` (string, null) – Trailing icon  
+- `label` (string, required) – Visible button label
 
 ---
 
 ## 7. Events
 
-List custom DOM events this component may emit:
+List all custom DOM events emitted.
 
-| Event Name    | Trigger                   | Payload              |
-|---------------|---------------------------|----------------------|
-| `click`       | On user click             | Native click event   |
-| `change`      | When value/state changes  | Depends on component |
+- Format:
+  - `event-name`: Trigger condition – Payload type or detail
+
+**Example**:
+- `click`: Fired on user interaction – native click event  
+- `change`: Fired on value/state update – string or object
 
 ---
 
-## 8. Accessibility
+## 8. Accessibility Checklist
 
-Accessibility support checklist:
+Indicate what ARIA and keyboard features are implemented.
 
-- [ ] Uses correct ARIA roles
-- [ ] Supports keyboard navigation
-- [ ] Uses `aria-disabled` or similar
-- [ ] Focus ring visible on keyboard focus
+- Uses native interactive elements (`button`, `input`, etc)
+- Adds proper ARIA roles when needed
+- Handles `aria-disabled` or similar attributes
+- Supports keyboard navigation (`Tab`, `Enter`, `Space`)
+- Shows visible focus ring on keyboard focus
 
 ---
 
 ## 9. Responsive Behavior
 
-Explain how this component adapts to different screen sizes or layouts.
+Describe how the component behaves in flexible layouts.
+
+- Minimum/maximum sizes (e.g. `min-height: 36px`)
+- Whether content auto-wraps or shrinks
+- How icons or labels scale with screen size
 
 ---
 
-## 10. Notes
+## 10. Notes (Optional)
 
-Optional notes for special cases, design deviations, or implementation warnings.
+Any implementation-specific rules, limitations, or design deviations.
+
+---
 
 ## Coding Guidelines
 
 You are a senior frontend engineer and expert in Web Components.
-
-TASK:  
-I will give you a custom element built using plain HTML, JS, and CSS (with Shadow DOM). Your job is to **audit and refactor** it so that it adheres to all of the following best practices:
+Keep in mind below guidelines while implementing any component
 
 ---
 
