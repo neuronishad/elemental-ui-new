@@ -12,6 +12,10 @@
   width: 220px;
 }
 
+.nav-panel {
+  width: 220px;
+}
+
 .demo-content {
   flex: 1;
   max-width: 800px;
