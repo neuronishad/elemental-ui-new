@@ -53,10 +53,10 @@ export default function App() {
       </fieldset>
 
       <Section id="buttons">
-        <eui-button id="defaultBtn">Default Button</eui-button>
-        <eui-button variant="text">Text Button</eui-button>
-        <eui-button variant="outlined">Outlined Button</eui-button>
-        <eui-button variant="icon">&#x2764;</eui-button>
+        <eui-button id="defaultBtn" label="Default Button"></eui-button>
+        <eui-button variant="text" label="Text Button"></eui-button>
+        <eui-button variant="outlined" label="Outlined Button"></eui-button>
+        <eui-button variant="icon" icon="❤" label="Like"></eui-button>
       </Section>
 
       <Section id="text-input">
@@ -84,15 +84,15 @@ export default function App() {
       </Section>
 
       <Section id="dialog">
-        <eui-button onClick={() => document.getElementById('dlg').open()}>Open Dialog</eui-button>
+        <eui-button label="Open Dialog" onClick={() => document.getElementById('dlg').open()}></eui-button>
         <eui-dialog id="dlg">
           <p>Hello Dialog</p>
-          <eui-button onClick={() => document.getElementById('dlg').close()}>Close</eui-button>
+          <eui-button label="Close" onClick={() => document.getElementById('dlg').close()}></eui-button>
         </eui-dialog>
       </Section>
 
       <Section id="snackbar">
-        <eui-button onClick={() => document.getElementById('sb').show()}>Show Snackbar</eui-button>
+        <eui-button label="Show Snackbar" onClick={() => document.getElementById('sb').show()}></eui-button>
         <eui-snackbar id="sb">Saved!</eui-snackbar>
       </Section>
 
@@ -115,7 +115,7 @@ export default function App() {
 
       <Section id="tooltip">
         <eui-tooltip text="Tooltip text">
-          <eui-button variant="text">Hover me</eui-button>
+          <eui-button variant="text" label="Hover me"></eui-button>
         </eui-tooltip>
       </Section>
 
