@@ -15,7 +15,7 @@ Elemental UI is an experimental collection of **JavaScript/HTML only web compone
 1. Import the script for the component you want to use:
 
 ```html
-<script type="module" src="https://cdn.example.com/components/button.min.js"></script>
+<script type="module" src="https://cdn.example.com/components/basic/button.min.js"></script>
 ```
 
 2. Use the custom element in your markup:
@@ -40,9 +40,7 @@ The library exposes CSS custom properties for colors, spacing and typography. De
 
 ## Demo
 
-Open `index.html` in a browser to see all components in action. Use the color pickers to adjust theme colors.
-
-For a React-based demo, a Vite application lives in the `app/` directory. Run it with:
+Run the Vite demo in the `app/` directory to see all components in action and tweak theme colors:
 
 ```bash
 cd app
@@ -54,9 +52,8 @@ The React app loads the Elemental UI components via `<script>` tags and lets you
 
 ## Repository Layout
 
-The `components` directory contains the source for each custom element. You can
-import them individually or via `components/index.js` which re-exports every
-component. Available modules include:
+The `components` directory contains the source for each custom element. You can import them individually from `components/basic/` or via `components/index.js` which re-exports every component.
+Available modules include:
 
 - `button.js`
 - `text-input.js`
