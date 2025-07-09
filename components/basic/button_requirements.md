@@ -53,15 +53,18 @@ A flexible, accessible button component that supports multiple visual variants, 
 
 ### Example Usage
 ```html
-<eui-button variant="contained" icon="add">Add</eui-button>
+<eui-button variant="contained">
+  <svg slot="icon"><!-- icon --></svg>
+  Add
+</eui-button>
 ```
 
 ### Internal DOM (Shadow DOM)
 ```html
 <button class="button">
-  <span class="icon leading">[SVG]</span>
-  <span class="label">Add</span>
-  <span class="icon trailing">[SVG]</span>
+  <span class="icon leading"><slot name="icon"></slot></span>
+  <span class="label"><slot></slot></span>
+  <span class="icon trailing"><slot name="trailing-icon"></slot></span>
   <span class="ripple"></span>
 </button>
 ```
@@ -74,9 +77,9 @@ A flexible, accessible button component that supports multiple visual variants, 
 |------------------|----------|-------------|-----------------------------------------|
 | `variant`        | string   | `"text"`    | Style variant: `text`, `outlined`, etc. |
 | `disabled`       | boolean  | `false`     | Disable interaction                     |
-| `icon`           | string   | `null`      | Name of leading icon (optional)         |
-| `trailing-icon`  | string   | `null`      | Name of trailing icon (optional)        |
-| `label`          | string   | required    | Visible label text                      |
+| `icon`           | string   | `null`      | Fallback content for leading icon slot |
+| `trailing-icon`  | string   | `null`      | Fallback content for trailing icon slot |
+| `label`          | string   | required    | Fallback text if default slot empty |
 
 ---
 
