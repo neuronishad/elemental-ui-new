@@ -3,12 +3,18 @@ import { EUIBaseElement } from './eui-base.js';
 const template = document.createElement('template');
 template.innerHTML = `
   <style>
-    :host { display:inline-block; position:relative; font:inherit; }
-    .container { position:relative; }
+    :host {
+      display:block;
+      position:relative;
+      font:inherit;
+      width:100%;
+    }
+    .container { position:relative; width:100%; }
     .trigger {
       display:flex;
       align-items:center;
       justify-content:space-between;
+      width:100%;
       min-height:36px;
       padding:0.5em;
       cursor:pointer;
@@ -144,6 +150,7 @@ export class EUISelect extends EUIBaseElement {
     this.handleSlotChange = this.handleSlotChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
   connectedCallback() {
@@ -155,6 +162,7 @@ export class EUISelect extends EUIBaseElement {
     this._searchInput.addEventListener('input', this.handleSearch);
     this._trigger.addEventListener('focus', () => this.setAttribute('focused', ''));
     this._trigger.addEventListener('blur', () => this.removeAttribute('focused'));
+    document.addEventListener('click', this.handleOutsideClick);
     this.render();
   }
 
@@ -165,6 +173,7 @@ export class EUISelect extends EUIBaseElement {
     this._slot.removeEventListener('slotchange', this.handleSlotChange);
     this._optionList.removeEventListener('click', this.handleOptionClick);
     this._searchInput.removeEventListener('input', this.handleSearch);
+    document.removeEventListener('click', this.handleOutsideClick);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -185,6 +194,11 @@ export class EUISelect extends EUIBaseElement {
         break;
       case 'open':
         this._trigger.setAttribute('aria-expanded', this.open);
+        if (this.open) {
+          this._trigger.focus();
+        } else {
+          this._trigger.blur();
+        }
         break;
     }
   }
@@ -253,6 +267,12 @@ export class EUISelect extends EUIBaseElement {
       const match = opt.textContent.toLowerCase().includes(q);
       opt.style.display = match ? '' : 'none';
     });
+  }
+
+  handleOutsideClick(e) {
+    if (this.open && !this.contains(e.target)) {
+      this.open = false;
+    }
   }
 
   _updateSelectedDisplay() {
