@@ -449,19 +449,18 @@ export default function App() {
 
         <Section id="grid-box">
          <eui-grid
-  style="width: 100%; max-width: 600px;"
   columns="auto auto auto"
   rows="auto auto"
   areas="'a b c' 'd e f'"
   gap="sm"
   padding="sm"
 >
-  <div class="demo-box" slot="a">A</div>
-  <div class="demo-box" slot="b">B</div>
-  <div class="demo-box" slot="c">C</div>
-  <div class="demo-box" slot="d">D</div>
-  <div class="demo-box" slot="e">E</div>
-  <div class="demo-box" slot="f">F</div>
+  <div className="demo-box" slot="a">A</div>
+  <div className="demo-box" slot="b">B</div>
+  <div className="demo-box" slot="c">C</div>
+  <div className="demo-box" slot="d">D</div>
+  <div className="demo-box" slot="e">E</div>
+  <div className="demo-box" slot="f">F</div>
 </eui-grid>
         </Section>
 
