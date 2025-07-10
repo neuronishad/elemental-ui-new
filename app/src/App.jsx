@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
 
 function hexToHsl(hex) {
@@ -131,7 +131,6 @@ export default function App() {
     'elevation-2': '#eee7f4',
   }
 
-  const [tokens, setTokens] = useState({})
 
   useEffect(() => {
     const update = () => {
@@ -169,56 +168,6 @@ export default function App() {
       document.documentElement.style.setProperty('--eui-color-elevation-1', elevation1)
       document.documentElement.style.setProperty('--eui-color-elevation-2', elevation2)
 
-      setTokens({
-        '--eui-color-primary-base': primary,
-        '--eui-color-primary-hover': darken(primary, 0.1),
-        '--eui-color-primary-active': darken(primary, 0.2),
-        '--eui-color-primary-container': lighten(primary, 0.4),
-        '--eui-color-primary-disabled': lighten(primary, 0.5),
-        '--eui-color-primary-outline': primary,
-        '--eui-color-on-primary': contrast(primary),
-
-        '--eui-color-secondary-base': secondary,
-        '--eui-color-secondary-hover': darken(secondary, 0.1),
-        '--eui-color-secondary-active': darken(secondary, 0.2),
-        '--eui-color-secondary-container': lighten(secondary, 0.4),
-        '--eui-color-secondary-disabled': lighten(secondary, 0.5),
-        '--eui-color-secondary-outline': secondary,
-        '--eui-color-on-secondary': contrast(secondary),
-
-        '--eui-color-error-base': error,
-        '--eui-color-error-hover': darken(error, 0.1),
-        '--eui-color-error-active': darken(error, 0.2),
-        '--eui-color-error-container': lighten(error, 0.4),
-        '--eui-color-error-disabled': lighten(error, 0.5),
-        '--eui-color-error-outline': error,
-        '--eui-color-on-error': contrast(error),
-
-        '--eui-color-warning-base': warning,
-        '--eui-color-warning-hover': darken(warning, 0.1),
-        '--eui-color-warning-active': darken(warning, 0.2),
-        '--eui-color-warning-container': lighten(warning, 0.4),
-        '--eui-color-warning-disabled': lighten(warning, 0.5),
-        '--eui-color-warning-outline': warning,
-        '--eui-color-on-warning': contrast(warning),
-
-        '--eui-color-success-base': success,
-        '--eui-color-success-hover': darken(success, 0.1),
-        '--eui-color-success-active': darken(success, 0.2),
-        '--eui-color-success-container': lighten(success, 0.4),
-        '--eui-color-success-disabled': lighten(success, 0.5),
-        '--eui-color-success-outline': success,
-        '--eui-color-on-success': contrast(success),
-
-        '--eui-color-surface': surface,
-        '--eui-color-surface-variant': surfaceVariant,
-        '--eui-color-background': background,
-        '--eui-color-on-background': onBackground,
-        '--eui-color-on-surface': onSurface,
-        '--eui-color-elevation-0': elevation0,
-        '--eui-color-elevation-1': elevation1,
-        '--eui-color-elevation-2': elevation2,
-      })
     }
 
     update()
@@ -229,8 +178,14 @@ export default function App() {
   }, [])
 
   return (
-    <div className="demo-layout flex items-start gap-8">
-      <aside className="theme-panel w-56">
+    <eui-grid
+      className="demo-layout"
+      columns="auto 1fr auto"
+      areas="'theme main nav'"
+      gap="lg"
+      padding="lg"
+    >
+      <eui-vbox grid-area="theme" className="theme-panel">
         <fieldset>
           <legend>Theme</legend>
           <div className="flex flex-col gap-2">
@@ -417,9 +372,9 @@ export default function App() {
             </label>
           </div>
         </fieldset>
-      </aside>
+      </eui-vbox>
 
-      <main className="demo-content flex-1">
+      <main grid-area="main" className="demo-content">
         <h1>Elemental UI Components</h1>
 
         <Section id="vbox">
@@ -465,20 +420,22 @@ export default function App() {
         </Section>
 
         <Section id="buttons">
-          <eui-button id="defaultBtn" label="Default Button"></eui-button>
-          <eui-button variant="contained" label="Contained Button"></eui-button>
-          <eui-button variant="outlined" label="Outlined Button"></eui-button>
-          <eui-button variant="icon" icon="❤" label="Like"></eui-button>
+          <eui-hbox gap="sm">
+            <eui-button id="defaultBtn" label="Default Button"></eui-button>
+            <eui-button variant="contained" label="Contained Button"></eui-button>
+            <eui-button variant="outlined" label="Outlined Button"></eui-button>
+            <eui-button variant="icon" icon="❤" label="Like"></eui-button>
+          </eui-hbox>
         </Section>
       </main>
-      <nav className="nav-panel w-56">
+      <eui-vbox grid-area="nav" className="nav-panel">
         <a href="#vbox">VBox</a>
         <a href="#hbox">HBox</a>
         <a href="#center-box">Center Box</a>
         <a href="#grid-box">Grid Box</a>
         <a href="#buttons">Buttons</a>
-      </nav>
-    </div>
+      </eui-vbox>
+    </eui-grid>
   )
 }
 
