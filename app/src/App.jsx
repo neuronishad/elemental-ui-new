@@ -427,6 +427,14 @@ export default function App() {
             <eui-button variant="icon" icon="❤" label="Like"></eui-button>
           </eui-hbox>
         </Section>
+
+        <Section id="select">
+          <eui-select label="Choose Country" searchable>
+            <eui-option value="IN">India</eui-option>
+            <eui-option value="US">United States</eui-option>
+            <eui-option value="JP">Japan</eui-option>
+          </eui-select>
+        </Section>
       </main>
       <eui-vbox grid-area="nav" className="nav-panel">
         <a href="#vbox">VBox</a>
@@ -434,6 +442,7 @@ export default function App() {
         <a href="#center-box">Center Box</a>
         <a href="#grid-box">Grid Box</a>
         <a href="#buttons">Buttons</a>
+        <a href="#select">Select</a>
       </eui-vbox>
     </eui-grid>
   )

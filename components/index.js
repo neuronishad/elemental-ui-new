@@ -1,4 +1,5 @@
 export * from './basic/button.js';
+export * from './basic/select.js';
 export * from './container/vbox.js';
 export * from './container/hbox.js';
 export * from './container/center-box.js';
