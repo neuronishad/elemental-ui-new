@@ -24,3 +24,10 @@
 section {
   margin-bottom: 1.5em;
 }
+
+.demo-box {
+  width: 80px;
+  border: 1px solid #ccc;
+  padding: 4px;
+  text-align: center;
+}
