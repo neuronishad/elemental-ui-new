@@ -3,6 +3,9 @@ import { EUIContainerElement } from './eui-container.js';
 export class EUICenterBox extends EUIContainerElement {
   constructor() {
     super('column');
+    this.style.height = '100%';
+    this.style.width = '100%';
+    this.style.boxSizing = 'border-box';
   }
 
   get justifyContent() {
