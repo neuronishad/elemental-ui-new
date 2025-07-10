@@ -18,9 +18,6 @@ template.innerHTML = `
       padding: var(--_padding, 16px);
       box-sizing: border-box;
     }
-
-    /* NOTE: grid-area via attr() is not valid CSS.
-       Users must set grid-area via inline styles or classes manually on slotted elements. */
   </style>
   <slot></slot>
 `;
@@ -37,13 +34,16 @@ export class EUIGrid extends HTMLElement {
 
   connectedCallback() {
     this._applyStyles();
+    this._assignGridAreas();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) this._applyStyles();
+    if (oldValue !== newValue) {
+      this._applyStyles();
+      if (name === 'areas') this._assignGridAreas();
+    }
   }
 
-  // Properties with fallback defaults
   get columns() {
     return this.getAttribute('columns') || '1fr';
   }
@@ -92,7 +92,6 @@ export class EUIGrid extends HTMLElement {
     const gapVal = GAP_MAP[gapKey] || gapKey;
     this.style.setProperty('--_gap', gapVal);
 
-    // Padding defaults to gap if not explicitly set
     const padKey = this.hasAttribute('padding') ? this.padding : gapKey;
     const padVal = GAP_MAP[padKey] || padKey;
     this.style.setProperty('--_padding', padVal);
@@ -100,6 +99,16 @@ export class EUIGrid extends HTMLElement {
     this.style.setProperty('--_columns', this.columns);
     this.style.setProperty('--_rows', this.rows);
     this.style.setProperty('--_areas', this.areas || 'unset');
+  }
+
+  _assignGridAreas() {
+    const children = this.querySelectorAll('[slot]');
+    children.forEach(child => {
+      const slotName = child.getAttribute('slot');
+      if (slotName && !child.style.gridArea) {
+        child.style.gridArea = slotName;
+      }
+    });
   }
 }
 
