@@ -87,6 +87,8 @@ function applyTone(prefix, base) {
   const disabledTone = lighten(base, 0.5)
   const on = contrast(base)
 
+  root.style.setProperty(`--eui-color-${prefix}-outline`, base)
+
   root.style.setProperty(`--eui-color-${prefix}-base`, base)
   root.style.setProperty(`--eui-color-${prefix}-hover`, hover)
   root.style.setProperty(`--eui-color-${prefix}-active`, active)
@@ -98,6 +100,7 @@ function applyTone(prefix, base) {
   setInputValue(`${prefix}ActiveColor`, active)
   setInputValue(`${prefix}ContainerColor`, container)
   setInputValue(`${prefix}DisabledColor`, disabledTone)
+  setInputValue(`${prefix}OutlineColor`, base)
   setInputValue(`on${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Color`, on)
 }
 
@@ -120,12 +123,9 @@ export default function App() {
     'surface-variant': '#e7e0ec',
     'on-background': '#1c1b1f',
     'on-surface': '#1c1b1f',
-    outline: 'rgba(0, 0, 0, 0.12)',
     error: '#b00020',
     warning: '#fbc02d',
     success: '#388e3c',
-    disabled: 'rgba(0, 0, 0, 0.38)',
-    'on-disabled': 'rgba(0, 0, 0, 0.12)',
     'elevation-0': '#ffffff',
     'elevation-1': '#f7f2fa',
     'elevation-2': '#eee7f4',
@@ -142,8 +142,6 @@ export default function App() {
       const warning = document.getElementById('warningColor').value
       const success = document.getElementById('successColor').value
       const background = document.getElementById('backgroundColor').value
-      const outline = document.getElementById('outlineColor').value
-      const disabled = document.getElementById('disabledColor').value
       const elevation0 = document.getElementById('elevation0Color').value
       const elevation1 = document.getElementById('elevation1Color').value
       const elevation2 = document.getElementById('elevation2Color').value
@@ -151,12 +149,10 @@ export default function App() {
       const surfaceVariant = lighten(surface, 0.1)
       const onSurface = contrast(surface)
       const onBackground = contrast(background)
-      const onDisabled = contrast(disabled)
 
       setInputValue('surfaceVariantColor', surfaceVariant)
       setInputValue('onSurfaceColor', onSurface)
       setInputValue('onBackgroundColor', onBackground)
-      setInputValue('onDisabledColor', onDisabled)
 
       applyTone('primary', primary)
       applyTone('secondary', secondary)
@@ -169,9 +165,6 @@ export default function App() {
       document.documentElement.style.setProperty('--eui-color-on-background', onBackground)
       document.documentElement.style.setProperty('--eui-color-surface-variant', surfaceVariant)
       document.documentElement.style.setProperty('--eui-color-on-surface', onSurface)
-      document.documentElement.style.setProperty('--eui-color-outline', outline)
-      document.documentElement.style.setProperty('--eui-color-disabled', disabled)
-      document.documentElement.style.setProperty('--eui-color-on-disabled', onDisabled)
       document.documentElement.style.setProperty('--eui-color-elevation-0', elevation0)
       document.documentElement.style.setProperty('--eui-color-elevation-1', elevation1)
       document.documentElement.style.setProperty('--eui-color-elevation-2', elevation2)
@@ -182,6 +175,7 @@ export default function App() {
         '--eui-color-primary-active': darken(primary, 0.2),
         '--eui-color-primary-container': lighten(primary, 0.4),
         '--eui-color-primary-disabled': lighten(primary, 0.5),
+        '--eui-color-primary-outline': primary,
         '--eui-color-on-primary': contrast(primary),
 
         '--eui-color-secondary-base': secondary,
@@ -189,6 +183,7 @@ export default function App() {
         '--eui-color-secondary-active': darken(secondary, 0.2),
         '--eui-color-secondary-container': lighten(secondary, 0.4),
         '--eui-color-secondary-disabled': lighten(secondary, 0.5),
+        '--eui-color-secondary-outline': secondary,
         '--eui-color-on-secondary': contrast(secondary),
 
         '--eui-color-error-base': error,
@@ -196,6 +191,7 @@ export default function App() {
         '--eui-color-error-active': darken(error, 0.2),
         '--eui-color-error-container': lighten(error, 0.4),
         '--eui-color-error-disabled': lighten(error, 0.5),
+        '--eui-color-error-outline': error,
         '--eui-color-on-error': contrast(error),
 
         '--eui-color-warning-base': warning,
@@ -203,6 +199,7 @@ export default function App() {
         '--eui-color-warning-active': darken(warning, 0.2),
         '--eui-color-warning-container': lighten(warning, 0.4),
         '--eui-color-warning-disabled': lighten(warning, 0.5),
+        '--eui-color-warning-outline': warning,
         '--eui-color-on-warning': contrast(warning),
 
         '--eui-color-success-base': success,
@@ -210,6 +207,7 @@ export default function App() {
         '--eui-color-success-active': darken(success, 0.2),
         '--eui-color-success-container': lighten(success, 0.4),
         '--eui-color-success-disabled': lighten(success, 0.5),
+        '--eui-color-success-outline': success,
         '--eui-color-on-success': contrast(success),
 
         '--eui-color-surface': surface,
@@ -217,9 +215,6 @@ export default function App() {
         '--eui-color-background': background,
         '--eui-color-on-background': onBackground,
         '--eui-color-on-surface': onSurface,
-        '--eui-color-outline': outline,
-        '--eui-color-disabled': disabled,
-        '--eui-color-on-disabled': onDisabled,
         '--eui-color-elevation-0': elevation0,
         '--eui-color-elevation-1': elevation1,
         '--eui-color-elevation-2': elevation2,
@@ -260,6 +255,10 @@ export default function App() {
               <input id="primaryDisabledColor" data-color="primary-disabled" type="color" defaultValue={lighten(DEFAULTS.primary, 0.5)} disabled />
             </label>
             <label className="flex items-center justify-between gap-2 pl-4">
+              <span>Outline</span>
+              <input id="primaryOutlineColor" data-color="primary-outline" type="color" defaultValue={DEFAULTS.primary} disabled />
+            </label>
+            <label className="flex items-center justify-between gap-2 pl-4">
               <span>On Primary</span>
               <input id="onPrimaryColor" data-color="on-primary" type="color" defaultValue={contrast(DEFAULTS.primary)} disabled />
             </label>
@@ -283,6 +282,10 @@ export default function App() {
             <label className="flex items-center justify-between gap-2 pl-4">
               <span>Disabled</span>
               <input id="secondaryDisabledColor" data-color="secondary-disabled" type="color" defaultValue={lighten(DEFAULTS.secondary, 0.5)} disabled />
+            </label>
+            <label className="flex items-center justify-between gap-2 pl-4">
+              <span>Outline</span>
+              <input id="secondaryOutlineColor" data-color="secondary-outline" type="color" defaultValue={DEFAULTS.secondary} disabled />
             </label>
             <label className="flex items-center justify-between gap-2 pl-4">
               <span>On Secondary</span>
@@ -312,10 +315,6 @@ export default function App() {
             </label>
             <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">
-              <span>Outline</span>
-              <input id="outlineColor" data-color="outline" type="color" defaultValue={DEFAULTS.outline} disabled />
-            </label>
-            <label className="flex items-center justify-between gap-2">
               <span>Error</span>
               <input id="errorColor" data-color="error" type="color" defaultValue={DEFAULTS.error} disabled />
             </label>
@@ -334,6 +333,10 @@ export default function App() {
             <label className="flex items-center justify-between gap-2 pl-4">
               <span>Disabled</span>
               <input id="errorDisabledColor" data-color="error-disabled" type="color" defaultValue={lighten(DEFAULTS.error, 0.5)} disabled />
+            </label>
+            <label className="flex items-center justify-between gap-2 pl-4">
+              <span>Outline</span>
+              <input id="errorOutlineColor" data-color="error-outline" type="color" defaultValue={DEFAULTS.error} disabled />
             </label>
             <label className="flex items-center justify-between gap-2 pl-4">
               <span>On Error</span>
@@ -362,6 +365,10 @@ export default function App() {
               <input id="warningDisabledColor" data-color="warning-disabled" type="color" defaultValue={lighten(DEFAULTS.warning, 0.5)} disabled />
             </label>
             <label className="flex items-center justify-between gap-2 pl-4">
+              <span>Outline</span>
+              <input id="warningOutlineColor" data-color="warning-outline" type="color" defaultValue={DEFAULTS.warning} disabled />
+            </label>
+            <label className="flex items-center justify-between gap-2 pl-4">
               <span>On Warning</span>
               <input id="onWarningColor" data-color="on-warning" type="color" defaultValue={contrast(DEFAULTS.warning)} disabled />
             </label>
@@ -388,17 +395,12 @@ export default function App() {
               <input id="successDisabledColor" data-color="success-disabled" type="color" defaultValue={lighten(DEFAULTS.success, 0.5)} disabled />
             </label>
             <label className="flex items-center justify-between gap-2 pl-4">
-              <span>On Success</span>
-              <input id="onSuccessColor" data-color="on-success" type="color" defaultValue={contrast(DEFAULTS.success)} disabled />
-            </label>
-            <hr className="my-2 border-t" />
-            <label className="flex items-center justify-between gap-2">
-              <span>Disabled</span>
-              <input id="disabledColor" data-color="disabled" type="color" defaultValue={DEFAULTS.disabled} disabled />
+              <span>Outline</span>
+              <input id="successOutlineColor" data-color="success-outline" type="color" defaultValue={DEFAULTS.success} disabled />
             </label>
             <label className="flex items-center justify-between gap-2 pl-4">
-              <span>On Disabled</span>
-              <input id="onDisabledColor" data-color="on-disabled" type="color" defaultValue={contrast(DEFAULTS.disabled)} disabled />
+              <span>On Success</span>
+              <input id="onSuccessColor" data-color="on-success" type="color" defaultValue={contrast(DEFAULTS.success)} disabled />
             </label>
             <hr className="my-2 border-t" />
             <label className="flex items-center justify-between gap-2">

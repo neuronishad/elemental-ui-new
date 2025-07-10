@@ -37,14 +37,13 @@ A flexible, accessible button component that supports multiple visual variants, 
 ```
 --eui-color-primary-base  
 --eui-color-primary-hover  
---eui-color-primary-active  
---eui-color-primary-disabled  
---eui-color-on-primary  
---eui-color-outline  
---eui-color-disabled  
---eui-outline-focus  
---eui-shadow-1  
---eui-shadow-2  
+--eui-color-primary-active
+--eui-color-primary-disabled
+--eui-color-on-primary
+--eui-color-primary-outline
+--eui-outline-focus
+--eui-shadow-1
+--eui-shadow-2
 ```
 
 ---
