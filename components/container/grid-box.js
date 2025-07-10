@@ -112,11 +112,11 @@ export class EUIGrid extends HTMLElement {
   }
 
   _assignGridAreas() {
-    const children = this.querySelectorAll('[slot]');
+    const children = this.querySelectorAll('[grid-area]');
     children.forEach(child => {
-      const slotName = child.getAttribute('slot');
-      if (slotName) {
-        child.style.gridArea = slotName;
+      const areaName = child.getAttribute('grid-area');
+      if (areaName) {
+        child.style.gridArea = areaName;
       }
     });
   }
