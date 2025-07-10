@@ -14,6 +14,7 @@ template.innerHTML = `
       display:flex;
       align-items:center;
       justify-content:space-between;
+      position:relative;
       width:100%;
       min-height:36px;
       padding:0.5em;
@@ -27,7 +28,9 @@ template.innerHTML = `
       border:1px solid var(--eui-color-outline, #ccc);
       background: transparent;
     }
-    .trigger:focus-visible { outline: var(--eui-outline-focus, 2px solid #2962ff); }
+    .trigger:focus-visible {
+      outline: 2px solid var(--eui-color-primary-base, #6200ee);
+    }
     :host([disabled]) .trigger { pointer-events:none; opacity:0.6; }
     .floating-label {
       position:absolute;
@@ -36,7 +39,7 @@ template.innerHTML = `
       transform:translateY(-50%);
       transition:all 0.2s ease;
       pointer-events:none;
-      background:inherit;
+      background: var(--eui-color-surface, #fff);
       padding:0 0.25em;
       color: var(--eui-color-on-surface, #000);
     }
@@ -60,32 +63,41 @@ template.innerHTML = `
       border-radius:4px;
     }
     :host([open]) .dropdown-panel { display:block; }
-    .search-input { width:100%; box-sizing:border-box; padding:0.25em 0.5em; border:none; outline:none; display:none; }
+    .search-input {
+      position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      box-sizing:border-box;
+      padding:0.25em 0.5em;
+      border:none;
+      outline:none;
+      display:none;
+      background: transparent;
+      font: inherit;
+      color: var(--eui-color-on-surface, #000);
+    }
+    :host([open][searchable]) .search-input {
+      display:block;
+    }
+    :host([open][searchable]) .selected-value {
+      display:none;
+    }
     .option-list ::slotted(eui-option) { display: block; }
     .support-text { font-size:0.75rem; color: var(--eui-color-error-base, #b00020); margin-top:0.25em; }
     :host(:not([error])) .support-text { display:none; }
-    .ripple {
-      position:absolute;
-      border-radius:50%;
-      background: currentColor;
-      opacity:0.15;
-      transform:scale(0);
-      animation:ripple 600ms ease-out;
-      pointer-events:none;
-    }
-    @keyframes ripple { to { transform:scale(2); opacity:0; } }
   </style>
   <div class="container" part="container">
     <label class="floating-label"></label>
     <div class="trigger" tabindex="0" role="combobox" aria-expanded="false">
+      <input class="search-input" placeholder="Search...">
       <div class="selected-value"></div>
       <div class="dropdown-icon">▾</div>
     </div>
     <div class="dropdown-panel">
-      <input class="search-input" placeholder="Search...">
       <div class="option-list" role="listbox"><slot></slot></div>
     </div>
-    <div class="ripple"></div>
     <div class="support-text"></div>
   </div>
 `;
@@ -104,8 +116,10 @@ export class EUIMenuOption extends HTMLElement {
           cursor: pointer;
           font: inherit;
         }
-        :host([aria-selected="true"]) {
+        :host([aria-selected="true"]),
+        :host(:hover) {
           background: var(--eui-color-primary-container, #e0f0ff);
+          color: var(--eui-color-primary-base, #6200ee);
         }
       </style>
       <slot></slot>
@@ -190,7 +204,7 @@ export class EUISelect extends EUIBaseElement {
         this._support.textContent = newValue || '';
         break;
       case 'searchable':
-        this._searchInput.style.display = this.searchable ? 'block' : 'none';
+        this._searchInput.style.display = this.searchable ? '' : 'none';
         break;
       case 'open':
         this._trigger.setAttribute('aria-expanded', this.open);
@@ -231,7 +245,7 @@ export class EUISelect extends EUIBaseElement {
     if (this.disabled) return;
     this.open = !this.open;
     if (this.open) {
-      this._spawnRipple();
+      if (this.searchable) this._searchInput.focus();
       this.dispatchEvent(new Event('focus'));
     } else {
       this.dispatchEvent(new Event('blur'));
@@ -253,8 +267,6 @@ export class EUISelect extends EUIBaseElement {
     this.value = option.value;
     this.dispatchEvent(new CustomEvent('change', { detail: { value: this.value } }));
     this.open = false;
-    const rect = this._trigger.getBoundingClientRect();
-    this._spawnRipple(e.clientX - rect.left, e.clientY - rect.top);
   }
 
   handleSlotChange() { this._updateSelectedDisplay(); }
@@ -287,22 +299,11 @@ export class EUISelect extends EUIBaseElement {
     this.toggleAttribute('has-value', !!match && match.value);
   }
 
-  _spawnRipple(x, y) {
-    const rect = this._trigger.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const ripple = document.createElement('span');
-    ripple.className = 'ripple';
-    ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${(x ?? rect.width / 2) - size / 2}px`;
-    ripple.style.top = `${(y ?? rect.height / 2) - size / 2}px`;
-    this._trigger.appendChild(ripple);
-    ripple.addEventListener('animationend', () => ripple.remove());
-  }
 
   render() {
     this._labelEl.textContent = this.label || '';
     this._support.textContent = this.error || '';
-    this._searchInput.style.display = this.searchable ? 'block' : 'none';
+    this._searchInput.style.display = this.searchable ? '' : 'none';
     this._updateSelectedDisplay();
     this._trigger.setAttribute('aria-expanded', this.open);
   }
