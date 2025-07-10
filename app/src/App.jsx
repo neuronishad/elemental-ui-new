@@ -438,6 +438,14 @@ export default function App() {
           </eui-vbox>
         </Section>
 
+        <Section id="hbox">
+          <eui-hbox gap="sm" padding="sm">
+            <div className="demo-box">One</div>
+            <div className="demo-box">Two</div>
+            <div className="demo-box">Three</div>
+          </eui-hbox>
+        </Section>
+
         <Section id="buttons">
           <eui-button id="defaultBtn" label="Default Button"></eui-button>
           <eui-button variant="contained" label="Contained Button"></eui-button>
@@ -447,6 +455,7 @@ export default function App() {
       </main>
       <nav className="nav-panel w-56">
         <a href="#vbox">VBox</a>
+        <a href="#hbox">HBox</a>
         <a href="#buttons">Buttons</a>
       </nav>
     </div>
