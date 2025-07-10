@@ -1,15 +1,19 @@
 const GAP_MAP = {
-  xs: 'var(--eui-spacing-xs, 4px)',
-  sm: 'var(--eui-spacing-sm, 8px)',
-  md: 'var(--eui-spacing-md, 16px)',
-  lg: 'var(--eui-spacing-lg, 24px)',
-  xl: 'var(--eui-spacing-xl, 32px)',
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
 };
 
 const template = document.createElement('template');
 template.innerHTML = `
   <style>
     :host {
+      display: contents; /* ⚠️ Flatten host — host itself is invisible */
+    }
+
+    .grid-container {
       display: grid;
       grid-template-columns: var(--_columns, 1fr);
       grid-template-rows: var(--_rows, auto);
@@ -17,9 +21,12 @@ template.innerHTML = `
       gap: var(--_gap, 16px);
       padding: var(--_padding, 16px);
       box-sizing: border-box;
+      width: 100%;
     }
   </style>
-  <slot></slot>
+  <div class="grid-container">
+    <slot></slot>
+  </div>
 `;
 
 export class EUIGrid extends HTMLElement {
@@ -34,16 +41,19 @@ export class EUIGrid extends HTMLElement {
 
   connectedCallback() {
     this._applyStyles();
-    this._assignGridAreas();
+    requestAnimationFrame(() => this._assignGridAreas());
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
       this._applyStyles();
-      if (name === 'areas') this._assignGridAreas();
+      if (name === 'areas') {
+        requestAnimationFrame(() => this._assignGridAreas());
+      }
     }
   }
 
+  // Property accessors
   get columns() {
     return this.getAttribute('columns') || '1fr';
   }
@@ -105,7 +115,7 @@ export class EUIGrid extends HTMLElement {
     const children = this.querySelectorAll('[slot]');
     children.forEach(child => {
       const slotName = child.getAttribute('slot');
-      if (slotName && !child.style.gridArea) {
+      if (slotName) {
         child.style.gridArea = slotName;
       }
     });
