@@ -6,7 +6,7 @@
 
 **Tag Name**: `<eui-button>`  
 **Description**:  
-A flexible, accessible button component that supports multiple visual variants, interactive states, optional icons, and ripple animation. Styled and animated to match Material Design specifications.
+A flexible, accessible button component that supports multiple visual variants and interactive states, optional icons, and ripple animation. Styled to match Material Design specifications.
 
 ---
 
@@ -27,8 +27,8 @@ A flexible, accessible button component that supports multiple visual variants, 
 | `default` | Regular appearance based on variant                                         |
 | `hover`   | Slight background tint or elevation increase                                |
 | `focus`   | Blue 2px focus ring around button                                           |
-| `active`  | Darker background or ripple expansion                                       |
-| `disabled`| Muted appearance, no pointer events or ripple animation                     |
+| `active`  | Darker background or ripple expansion                                              |
+| `disabled`| Muted appearance, no pointer events or ripple animation                                         |
 
 ---
 
@@ -111,5 +111,5 @@ A flexible, accessible button component that supports multiple visual variants, 
 ## 10. Notes
 
 - Ripple animation should be lightweight (pure CSS + JS).
-- All icons are assumed to be handled via inline SVG.
 - Keyboard activation triggers the same ripple effect as pointer clicks.
+- All icons are assumed to be handled via inline SVG.

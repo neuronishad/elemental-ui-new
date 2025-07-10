@@ -191,6 +191,9 @@ export class EUIButton extends EUIBaseElement {
     ripple.addEventListener('animationend', () => ripple.remove());
   }
 
+
+
+
   render() {
     this._ensureSlotContent('slot[name="icon"]', this.icon);
     this._ensureSlotContent('slot:not([name])', this.label);

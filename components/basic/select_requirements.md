@@ -6,7 +6,7 @@
 
 **Tag Name**: `<eui-select>`  
 **Description**:  
-A Material Design-inspired select dropdown component. Allows users to choose one option from a predefined list. Styled with elevation, floating label, and ripple animations. Supports keyboard interaction, client-side filtering, and validation states.
+A Material Design-inspired select dropdown component. Allows users to choose one option from a predefined list. Styled with elevation and a floating label. Supports keyboard interaction, client-side filtering, and validation states.
 
 ---
 
@@ -25,7 +25,7 @@ A Material Design-inspired select dropdown component. Allows users to choose one
 |-------------|--------------------------------------------------------------------------|
 | `default`   | Base state                                                               |
 | `hover`     | Background/outline highlight on hover                                    |
-| `focus`     | Floating label, blue 2px outline (`--eui-outline-focus`)                 |
+| `focus`     | Label shrinks into legend, primary outline |
 | `active`    | Dropdown expanded, selected value visible                                |
 | `disabled`  | Muted style, no interaction, `aria-disabled="true"`                      |
 | `error`     | Red outline or underline, optional error message visible below dropdown  |
@@ -67,15 +67,16 @@ A Material Design-inspired select dropdown component. Allows users to choose one
 ```html
 <div class="container" part="container">
   <label class="floating-label">Choose Country</label>
-  <div class="selected-value">India</div>
-  <div class="dropdown-icon">▾</div>
-  <div class="dropdown-panel">
+  <div class="trigger" tabindex="0" role="combobox">
     <input class="search-input" placeholder="Search..." />
+    <div class="selected-value">India</div>
+    <div class="dropdown-icon">▾</div>
+  </div>
+  <div class="dropdown-panel">
     <div class="option-list" role="listbox">
       <slot></slot>
     </div>
   </div>
-  <div class="ripple"></div>
   <div class="support-text"> <!-- helper or error --> </div>
 </div>
 ```
@@ -130,7 +131,6 @@ A Material Design-inspired select dropdown component. Allows users to choose one
 ## 10. Notes
 
 - `eui-option` elements are slotted children, with `value` attribute and text content.
-- Ripple animation triggers on open and option select.
 - Floating label animates above when value is selected or on focus.
 - `searchable` enables client-side filtering via `.search-input`, filtering matching option text case-insensitively.
 - No pagination or async loading is included (manual slotted children only).
