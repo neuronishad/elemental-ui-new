@@ -455,12 +455,12 @@ export default function App() {
   gap="sm"
   padding="sm"
 >
-  <div className="demo-box" slot="a">A</div>
-  <div className="demo-box" slot="b">B</div>
-  <div className="demo-box" slot="c">C</div>
-  <div className="demo-box" slot="d">D</div>
-  <div className="demo-box" slot="e">E</div>
-  <div className="demo-box" slot="f">F</div>
+  <div className="demo-box" grid-area="a">A</div>
+  <div className="demo-box" grid-area="b">B</div>
+  <div className="demo-box" grid-area="c">C</div>
+  <div className="demo-box" grid-area="d">D</div>
+  <div className="demo-box" grid-area="e">E</div>
+  <div className="demo-box" grid-area="f">F</div>
 </eui-grid>
         </Section>
 
