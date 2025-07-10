@@ -430,6 +430,14 @@ export default function App() {
       <main className="demo-content flex-1">
         <h1>Elemental UI Components</h1>
 
+        <Section id="vbox">
+          <eui-vbox gap="sm" padding="sm">
+            <div className="demo-box">One</div>
+            <div className="demo-box">Two</div>
+            <div className="demo-box">Three</div>
+          </eui-vbox>
+        </Section>
+
         <Section id="buttons">
           <eui-button id="defaultBtn" label="Default Button"></eui-button>
           <eui-button variant="contained" label="Contained Button"></eui-button>
@@ -438,6 +446,7 @@ export default function App() {
         </Section>
       </main>
       <nav className="nav-panel w-56">
+        <a href="#vbox">VBox</a>
         <a href="#buttons">Buttons</a>
       </nav>
     </div>
