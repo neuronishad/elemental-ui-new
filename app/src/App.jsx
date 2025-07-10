@@ -439,6 +439,11 @@ export default function App() {
         <Section id="checkbox">
           <eui-checkbox label="Accept terms"></eui-checkbox>
         </Section>
+
+        <Section id="radio">
+          <eui-radio name="demo" value="option1" checked>Option 1</eui-radio>
+          <eui-radio name="demo" value="option2">Option 2</eui-radio>
+        </Section>
       </main>
       <eui-vbox grid-area="nav" className="nav-panel">
         <a href="#vbox">VBox</a>
@@ -448,6 +453,7 @@ export default function App() {
         <a href="#buttons">Buttons</a>
         <a href="#select">Select</a>
         <a href="#checkbox">Checkbox</a>
+        <a href="#radio">Radio</a>
       </eui-vbox>
     </eui-grid>
   )
