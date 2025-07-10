@@ -30,6 +30,7 @@ template.innerHTML = `
     }
     .outer-circle {
       position:absolute;
+      inset:0;
       box-sizing:border-box;
       width:100%;
       height:100%;
@@ -39,16 +40,19 @@ template.innerHTML = `
       transition:border-color 0.2s,background 0.2s;
     }
     .inner-dot {
+      position:absolute;
+      top:50%;
+      left:50%;
       width:12px;
       height:12px;
       border-radius:50%;
       background:var(--eui-color-secondary-base,#018786);
-      transform:scale(0);
+      transform:translate(-50%, -50%) scale(0);
       opacity:0;
       transition:transform 0.2s,opacity 0.2s,background 0.2s;
     }
     input:checked + .control .inner-dot {
-      transform:scale(1);
+      transform:translate(-50%, -50%) scale(1);
       opacity:1;
     }
     label:hover input:not(:disabled) + .control .outer-circle {
@@ -101,6 +105,7 @@ export class EUIRadio extends EUIBaseElement {
     this._button = this._input;
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handlePointerDown = this.handlePointerDown.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
@@ -108,6 +113,7 @@ export class EUIRadio extends EUIBaseElement {
   connectedCallback() {
     super.connectedCallback();
     this._input.addEventListener('change', this.handleChange);
+    this._input.addEventListener('click', this.handleClick);
     this._control.addEventListener('pointerdown', this.handlePointerDown);
     this._input.addEventListener('keydown', this.handleKeyDown);
     this.render();
@@ -116,6 +122,7 @@ export class EUIRadio extends EUIBaseElement {
   disconnectedCallback() {
     super.disconnectedCallback?.();
     this._input.removeEventListener('change', this.handleChange);
+    this._input.removeEventListener('click', this.handleClick);
     this._control.removeEventListener('pointerdown', this.handlePointerDown);
     this._input.removeEventListener('keydown', this.handleKeyDown);
   }
@@ -154,6 +161,16 @@ export class EUIRadio extends EUIBaseElement {
   handleChange() {
     this.checked = this._input.checked;
     this.dispatchEvent(new CustomEvent('change', { detail: { name: this.name, value: this.value } }));
+  }
+
+  handleClick(e) {
+    if (this.disabled) return;
+    if (this.checked) {
+      e.preventDefault();
+      this.checked = false;
+      this._input.checked = false;
+      this.dispatchEvent(new CustomEvent('change', { detail: { name: this.name, value: this.value } }));
+    }
   }
 
   handlePointerDown(e) {
