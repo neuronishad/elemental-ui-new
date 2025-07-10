@@ -417,14 +417,6 @@ export default function App() {
             </label>
           </div>
         </fieldset>
-        <div className="mt-4 space-y-1 text-xs">
-          {Object.entries(tokens).map(([name, value]) => (
-            <div key={name} className="flex items-center gap-2">
-              <span className="inline-block w-4 h-4 rounded" style={{ backgroundColor: value }} />
-              <code>{`${name}: ${value}`}</code>
-            </div>
-          ))}
-        </div>
       </aside>
 
       <main className="demo-content flex-1">
@@ -456,20 +448,21 @@ export default function App() {
         </Section>
 
         <Section id="grid-box">
-          <eui-grid
-            columns="auto auto auto"
-            rows="auto auto"
-            areas="'a b c' 'd e f'"
-            gap="sm"
-            padding="sm"
-          >
-            <div className="demo-box" slot="a">A</div>
-            <div className="demo-box" slot="b">B</div>
-            <div className="demo-box" slot="c">C</div>
-            <div className="demo-box" slot="d">D</div>
-            <div className="demo-box" slot="e">E</div>
-            <div className="demo-box" slot="f">F</div>
-          </eui-grid>
+         <eui-grid
+  style="width: 100%; max-width: 600px;"
+  columns="auto auto auto"
+  rows="auto auto"
+  areas="'a b c' 'd e f'"
+  gap="sm"
+  padding="sm"
+>
+  <div class="demo-box" slot="a">A</div>
+  <div class="demo-box" slot="b">B</div>
+  <div class="demo-box" slot="c">C</div>
+  <div class="demo-box" slot="d">D</div>
+  <div class="demo-box" slot="e">E</div>
+  <div class="demo-box" slot="f">F</div>
+</eui-grid>
         </Section>
 
         <Section id="buttons">
