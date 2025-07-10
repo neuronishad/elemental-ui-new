@@ -126,9 +126,8 @@ export class EUISelect extends EUIBaseElement {
   }
 
   constructor() {
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.appendChild(template.content.cloneNode(true));
+    super(template);
+    const shadow = this._shadow;
 
     this._trigger = shadow.querySelector('.trigger');
     this._labelEl = shadow.querySelector('.floating-label');
