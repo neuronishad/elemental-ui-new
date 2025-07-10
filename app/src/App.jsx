@@ -435,6 +435,10 @@ export default function App() {
             <eui-option value="JP">Japan</eui-option>
           </eui-select>
         </Section>
+
+        <Section id="checkbox">
+          <eui-checkbox label="Accept terms"></eui-checkbox>
+        </Section>
       </main>
       <eui-vbox grid-area="nav" className="nav-panel">
         <a href="#vbox">VBox</a>
@@ -443,6 +447,7 @@ export default function App() {
         <a href="#grid-box">Grid Box</a>
         <a href="#buttons">Buttons</a>
         <a href="#select">Select</a>
+        <a href="#checkbox">Checkbox</a>
       </eui-vbox>
     </eui-grid>
   )
