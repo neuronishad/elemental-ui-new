@@ -57,25 +57,17 @@ template.innerHTML = `
       outline:var(--eui-outline-focus,2px solid #2962ff);
       outline-offset:2px;
     }
-    .checkmark {
+    .mark {
+      width:12px;
+      height:12px;
       display:none;
-      width:12px;
-      height:8px;
-      border:solid currentColor;
-      border-width:0 2px 2px 0;
-      transform:rotate(45deg);
-      box-sizing:border-box;
     }
-    input:indeterminate + .visual-box .checkmark {
-      display:block;
-      width:12px;
-      height:0;
-      border-width:0 0 2px 0;
-      transform:none;
-    }
-    input:checked + .visual-box .checkmark {
-      display:block;
-    }
+    .mark .check,
+    .mark .dash { display:none; }
+    input:checked + .visual-box .mark,
+    input:indeterminate + .visual-box .mark { display:block; }
+    input:checked + .visual-box .mark .check { display:block; }
+    input:indeterminate + .visual-box .mark .dash { display:block; }
     .ripple {
       position:absolute;
       border-radius:50%;
@@ -90,7 +82,10 @@ template.innerHTML = `
   <label class="container">
     <input type="checkbox" />
     <span class="visual-box">
-      <span class="checkmark"></span>
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path class="check" d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="3"/>
+        <path class="dash" d="M4 12h16" fill="none" stroke="currentColor" stroke-width="3"/>
+      </svg>
     </span>
     <span class="label-text"><slot></slot></span>
   </label>
