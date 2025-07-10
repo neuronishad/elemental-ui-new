@@ -446,6 +446,15 @@ export default function App() {
           </eui-hbox>
         </Section>
 
+        <Section id="center-box">
+          <div className="border border-dashed p-2" style={{ height: '200px' }}>
+            <eui-center-box gap="sm" padding="sm">
+              <div className="demo-box">One</div>
+              <div className="demo-box">Two</div>
+            </eui-center-box>
+          </div>
+        </Section>
+
         <Section id="buttons">
           <eui-button id="defaultBtn" label="Default Button"></eui-button>
           <eui-button variant="contained" label="Contained Button"></eui-button>
@@ -456,6 +465,7 @@ export default function App() {
       <nav className="nav-panel w-56">
         <a href="#vbox">VBox</a>
         <a href="#hbox">HBox</a>
+        <a href="#center-box">Center Box</a>
         <a href="#buttons">Buttons</a>
       </nav>
     </div>
