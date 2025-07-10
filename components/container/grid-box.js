@@ -13,14 +13,14 @@ template.innerHTML = `
       display: grid;
       grid-template-columns: var(--_columns, 1fr);
       grid-template-rows: var(--_rows, auto);
-      grid-template-areas: var(--_areas);
+      grid-template-areas: var(--_areas, unset);
       gap: var(--_gap, 16px);
       padding: var(--_padding, 16px);
       box-sizing: border-box;
     }
-    ::slotted([slot]) {
-      grid-area: attr(slot);
-    }
+
+    /* NOTE: grid-area via attr() is not valid CSS.
+       Users must set grid-area via inline styles or classes manually on slotted elements. */
   </style>
   <slot></slot>
 `;
@@ -32,8 +32,7 @@ export class EUIGrid extends HTMLElement {
 
   constructor() {
     super();
-    this._shadow = this.attachShadow({ mode: 'open' });
-    this._shadow.appendChild(template.content.cloneNode(true));
+    this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true));
   }
 
   connectedCallback() {
@@ -41,48 +40,51 @@ export class EUIGrid extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue === newValue) return;
-    this._applyStyles();
+    if (oldValue !== newValue) this._applyStyles();
   }
 
+  // Properties with fallback defaults
   get columns() {
     return this.getAttribute('columns') || '1fr';
   }
   set columns(val) {
-    if (val === null) this.removeAttribute('columns');
-    else this.setAttribute('columns', val);
+    this._setOrRemoveAttr('columns', val);
   }
 
   get rows() {
     return this.getAttribute('rows') || 'auto';
   }
   set rows(val) {
-    if (val === null) this.removeAttribute('rows');
-    else this.setAttribute('rows', val);
+    this._setOrRemoveAttr('rows', val);
   }
 
   get areas() {
     return this.getAttribute('areas') || '';
   }
   set areas(val) {
-    if (val === null) this.removeAttribute('areas');
-    else this.setAttribute('areas', val);
+    this._setOrRemoveAttr('areas', val);
   }
 
   get gap() {
     return this.getAttribute('gap') || 'md';
   }
   set gap(val) {
-    if (val === null) this.removeAttribute('gap');
-    else this.setAttribute('gap', val);
+    this._setOrRemoveAttr('gap', val);
   }
 
   get padding() {
     return this.getAttribute('padding');
   }
   set padding(val) {
-    if (val === null) this.removeAttribute('padding');
-    else this.setAttribute('padding', val);
+    this._setOrRemoveAttr('padding', val);
+  }
+
+  _setOrRemoveAttr(attr, val) {
+    if (val == null) {
+      this.removeAttribute(attr);
+    } else {
+      this.setAttribute(attr, val);
+    }
   }
 
   _applyStyles() {
@@ -90,13 +92,14 @@ export class EUIGrid extends HTMLElement {
     const gapVal = GAP_MAP[gapKey] || gapKey;
     this.style.setProperty('--_gap', gapVal);
 
-    const padKey = this.padding ?? gapKey;
+    // Padding defaults to gap if not explicitly set
+    const padKey = this.hasAttribute('padding') ? this.padding : gapKey;
     const padVal = GAP_MAP[padKey] || padKey;
     this.style.setProperty('--_padding', padVal);
 
     this.style.setProperty('--_columns', this.columns);
     this.style.setProperty('--_rows', this.rows);
-    this.style.setProperty('--_areas', this.areas);
+    this.style.setProperty('--_areas', this.areas || 'unset');
   }
 }
 
