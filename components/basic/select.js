@@ -54,11 +54,8 @@ template.innerHTML = `
       border-radius:4px;
     }
     :host([open]) .dropdown-panel { display:block; }
-    .search-input { width:100%; box-sizing:border-box; padding:0.25em 0.5em; border:none; outline:none; }
-    .option-list ::slotted(eui-option) { padding:0.5em; cursor:pointer; }
-    .option-list ::slotted(eui-option[aria-selected="true"]) {
-      background: var(--eui-color-primary-container, #eee);
-    }
+    .search-input { width:100%; box-sizing:border-box; padding:0.25em 0.5em; border:none; outline:none; display:none; }
+    .option-list ::slotted(eui-option) { display: block; }
     .support-text { font-size:0.75rem; color: var(--eui-color-error-base, #b00020); margin-top:0.25em; }
     :host(:not([error])) .support-text { display:none; }
     .ripple {
@@ -89,37 +86,58 @@ template.innerHTML = `
 
 export class EUIMenuOption extends HTMLElement {
   static get observedAttributes() { return ['value']; }
-  connectedCallback() { this.setAttribute('role', 'option'); }
-  get value() { return this.getAttribute('value') || this.textContent; }
-  set value(v) { v === null ? this.removeAttribute('value') : this.setAttribute('value', v); }
+
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.innerHTML = `
+      <style>
+        :host {
+          display: block;
+          padding: 0.5em 1em;
+          cursor: pointer;
+          font: inherit;
+        }
+        :host([aria-selected="true"]) {
+          background: var(--eui-color-primary-container, #e0f0ff);
+        }
+      </style>
+      <slot></slot>
+    `;
+  }
+
+  connectedCallback() {
+    this.setAttribute('role', 'option');
+  }
+
+  get value() {
+    return this.getAttribute('value') || this.textContent;
+  }
+
+  set value(v) {
+    v === null ? this.removeAttribute('value') : this.setAttribute('value', v);
+  }
 }
 customElements.define('eui-option', EUIMenuOption);
 
 export class EUISelect extends EUIBaseElement {
   static get observedAttributes() {
-    return [
-      ...super.observedAttributes,
-      'label',
-      'value',
-      'variant',
-      'placeholder',
-      'error',
-      'searchable',
-      'open'
-    ];
+    return [...super.observedAttributes, 'label', 'value', 'variant', 'placeholder', 'error', 'searchable', 'open'];
   }
 
   constructor() {
-    super(template);
-    this._trigger = this._shadow.querySelector('.trigger');
-    this._labelEl = this._shadow.querySelector('.floating-label');
-    this._valueEl = this._shadow.querySelector('.selected-value');
-    this._panel = this._shadow.querySelector('.dropdown-panel');
-    this._searchInput = this._shadow.querySelector('.search-input');
-    this._optionList = this._shadow.querySelector('.option-list');
-    this._support = this._shadow.querySelector('.support-text');
-    this._slot = this._shadow.querySelector('slot');
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.appendChild(template.content.cloneNode(true));
 
+    this._trigger = shadow.querySelector('.trigger');
+    this._labelEl = shadow.querySelector('.floating-label');
+    this._valueEl = shadow.querySelector('.selected-value');
+    this._panel = shadow.querySelector('.dropdown-panel');
+    this._searchInput = shadow.querySelector('.search-input');
+    this._optionList = shadow.querySelector('.option-list');
+    this._support = shadow.querySelector('.support-text');
+    this._slot = shadow.querySelector('slot');
     this._button = this._trigger;
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -136,6 +154,8 @@ export class EUISelect extends EUIBaseElement {
     this._slot.addEventListener('slotchange', this.handleSlotChange);
     this._optionList.addEventListener('click', this.handleOptionClick);
     this._searchInput.addEventListener('input', this.handleSearch);
+    this._trigger.addEventListener('focus', () => this.setAttribute('focused', ''));
+    this._trigger.addEventListener('blur', () => this.removeAttribute('focused'));
     this.render();
   }
 
@@ -191,6 +211,9 @@ export class EUISelect extends EUIBaseElement {
   get open() { return this.hasAttribute('open'); }
   set open(v) { v ? this.setAttribute('open', '') : this.removeAttribute('open'); }
 
+  get disabled() { return this.hasAttribute('disabled'); }
+  set disabled(v) { v ? this.setAttribute('disabled', '') : this.removeAttribute('disabled'); }
+
   toggleDropdown() {
     if (this.disabled) return;
     this.open = !this.open;
@@ -235,8 +258,11 @@ export class EUISelect extends EUIBaseElement {
 
   _updateSelectedDisplay() {
     const options = this._slot.assignedElements();
+    options.forEach(opt => opt.setAttribute('aria-selected', 'false'));
     let match = options.find(o => o.value === this.value);
-    if (!match) match = options[0];
+    if (match) {
+      match.setAttribute('aria-selected', 'true');
+    }
     const text = match ? match.textContent : this.placeholder || '';
     this._valueEl.textContent = text;
     this.toggleAttribute('has-value', !!match && match.value);
@@ -264,4 +290,3 @@ export class EUISelect extends EUIBaseElement {
 }
 
 customElements.define('eui-select', EUISelect);
-
