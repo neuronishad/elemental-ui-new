@@ -59,8 +59,8 @@ template.innerHTML = `
     }
     .checkmark {
       display:none;
-      width:10px;
-      height:6px;
+      width:12px;
+      height:8px;
       border:solid currentColor;
       border-width:0 2px 2px 0;
       transform:rotate(45deg);
@@ -68,7 +68,7 @@ template.innerHTML = `
     }
     input:indeterminate + .visual-box .checkmark {
       display:block;
-      width:10px;
+      width:12px;
       height:0;
       border-width:0 0 2px 0;
       transform:none;
