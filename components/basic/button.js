@@ -28,7 +28,8 @@ template.innerHTML = `
       cursor: default;
       pointer-events: none;
       background: var(--eui-color-primary-disabled, #ccc);
-      color: var(--eui-color-on-disabled, #666);
+      color: var(--eui-color-on-primary, #666);
+      opacity: 0.38;
       box-shadow: none;
     }
     :host([variant="contained"]) button {
@@ -44,7 +45,7 @@ template.innerHTML = `
       background: var(--eui-color-primary-active, #30009c);
     }
     :host([variant="outlined"]) button {
-      border: 1px solid var(--eui-color-outline, #ccc);
+      border: 1px solid var(--eui-color-primary-outline, #ccc);
     }
     :host([variant="text"]) button {
       color: var(--eui-color-primary-base, #6200ee);

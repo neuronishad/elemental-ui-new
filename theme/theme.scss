@@ -5,6 +5,7 @@
   --eui-color-primary-active: #30009c;
   --eui-color-primary-disabled: #cbb7f0;
   --eui-color-primary-container: #e8def8;
+  --eui-color-primary-outline: var(--eui-color-primary-base);
   --eui-color-on-primary: #ffffff;
 
   // SECONDARY
@@ -12,6 +13,7 @@
   --eui-color-secondary-hover: #016d6c;
   --eui-color-secondary-active: #014a49;
   --eui-color-secondary-container: #c8f8f6;
+  --eui-color-secondary-outline: var(--eui-color-secondary-base);
   --eui-color-on-secondary: #ffffff;
 
   // BACKGROUND & SURFACE
@@ -22,14 +24,13 @@
   --eui-color-surface-variant: #e7e0ec;
   --eui-color-on-surface: #1c1b1f;
 
-  // OUTLINE / BORDER
-  --eui-color-outline: rgba(0, 0, 0, 0.12);
 
   // ERROR
   --eui-color-error-base: #b00020;
   --eui-color-error-hover: #8c001a;
   --eui-color-error-active: #660015;
   --eui-color-error-container: #fcd8df;
+  --eui-color-error-outline: var(--eui-color-error-base);
   --eui-color-on-error: #ffffff;
 
   // SUCCESS
@@ -37,6 +38,7 @@
   --eui-color-success-hover: #2e7d32;
   --eui-color-success-active: #1b5e20;
   --eui-color-success-container: #c8e6c9;
+  --eui-color-success-outline: var(--eui-color-success-base);
   --eui-color-on-success: #ffffff;
 
   // WARNING
@@ -44,11 +46,9 @@
   --eui-color-warning-hover: #f9a825;
   --eui-color-warning-active: #f57f17;
   --eui-color-warning-container: #fff8e1;
+  --eui-color-warning-outline: var(--eui-color-warning-base);
   --eui-color-on-warning: #000000;
 
-  // DISABLED
-  --eui-color-disabled: rgba(0, 0, 0, 0.38);
-  --eui-color-on-disabled: rgba(0, 0, 0, 0.12);
 
   // SHADOWS
   --eui-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.2);

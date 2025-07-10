@@ -23,18 +23,20 @@ Used for main and accent actions.
 
 - `--eui-color-primary-base`: Default primary color  
 - `--eui-color-primary-hover`: On hover state  
-- `--eui-color-primary-active`: On active (pressed) state  
-- `--eui-color-primary-container`: For filled surfaces (e.g. chips, cards)  
-- `--eui-color-primary-disabled`: Muted state of primary  
+- `--eui-color-primary-active`: On active (pressed) state
+- `--eui-color-primary-container`: For filled surfaces (e.g. chips, cards)
+- `--eui-color-primary-disabled`: Muted state of primary
+- `--eui-color-primary-outline`: Border tone matching base
 - `--eui-color-on-primary`: Foreground content on primary
 
 ### Secondary (same structure as primary)
 
 - `--eui-color-secondary-base`  
 - `--eui-color-secondary-hover`  
-- `--eui-color-secondary-active`  
-- `--eui-color-secondary-container`  
-- `--eui-color-secondary-disabled`  
+- `--eui-color-secondary-active`
+- `--eui-color-secondary-container`
+- `--eui-color-secondary-disabled`
+- `--eui-color-secondary-outline`
 - `--eui-color-on-secondary`
 
 **Example Usage**:
@@ -64,8 +66,9 @@ Each status includes the following variants:
 - `base`: Default color  
 - `hover`: On hover  
 - `active`: On press  
-- `container`: For filled usage (e.g. alerts)  
+- `container`: For filled usage (e.g. alerts)
 - `on-*`: Foreground on that background
+- `outline`: Border tone matching base
 
 ### Example Tokens
 
@@ -75,17 +78,13 @@ Each status includes the following variants:
 
 ---
 
-## 🚫 Disabled & Outline
+## 🔳 Focus Outline
 
-- `--eui-color-disabled`: Muted background (e.g. button)  
-- `--eui-color-on-disabled`: Foreground on disabled  
-- `--eui-color-outline`: Border color (e.g. outlined button)  
 - `--eui-outline-focus`: Focus ring (usually 2px solid)
 
 **Example Usage**:
 ```css
 outline: var(--eui-outline-focus);
-color: var(--eui-color-on-disabled);
 ```
 
 ---
