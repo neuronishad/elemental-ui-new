@@ -455,6 +455,23 @@ export default function App() {
           </div>
         </Section>
 
+        <Section id="grid-box">
+          <eui-grid
+            columns="auto auto auto"
+            rows="auto auto"
+            areas="'a b c' 'd e f'"
+            gap="sm"
+            padding="sm"
+          >
+            <div className="demo-box" slot="a">A</div>
+            <div className="demo-box" slot="b">B</div>
+            <div className="demo-box" slot="c">C</div>
+            <div className="demo-box" slot="d">D</div>
+            <div className="demo-box" slot="e">E</div>
+            <div className="demo-box" slot="f">F</div>
+          </eui-grid>
+        </Section>
+
         <Section id="buttons">
           <eui-button id="defaultBtn" label="Default Button"></eui-button>
           <eui-button variant="contained" label="Contained Button"></eui-button>
@@ -466,6 +483,7 @@ export default function App() {
         <a href="#vbox">VBox</a>
         <a href="#hbox">HBox</a>
         <a href="#center-box">Center Box</a>
+        <a href="#grid-box">Grid Box</a>
         <a href="#buttons">Buttons</a>
       </nav>
     </div>
