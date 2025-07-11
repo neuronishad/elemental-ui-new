@@ -4,96 +4,87 @@ const template = document.createElement('template');
 
 template.innerHTML = `
   <style>
-    :host { display:inline-block; }
-    label {
-      display:inline-flex;
-      align-items:center;
-      gap:0.5em;
-      cursor:pointer;
-      user-select:none;
+    :host {
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
     }
-    input {
-      position:absolute;
-      width:18px;
-      height:18px;
-      margin:0;
-      opacity:0;
+
+    .checkbox-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
     }
+
+    input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      pointer-events: none;
+    }
+
     .visual-box {
-      position:relative;
-      width:18px;
-      height:18px;
-      box-sizing:border-box;
-      border:2px solid var(--eui-color-outline,#757575);
-      background:var(--eui-color-surface,#fff);
-      border-radius:2px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:background 0.2s,border-color 0.2s;
-      color:var(--eui-color-on-secondary,#fff);
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--eui-color-secondary-outline);
+      background: var(--eui-color-surface);
+      border-radius: 2px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--eui-color-on-secondary);
+      transition: background 0.2s, border-color 0.2s;
     }
-    :host([variant="outlined"]) .visual-box {
-      border-width:1px;
-      box-shadow:var(--eui-shadow-1,0 1px 3px rgba(0,0,0,0.2));
+
+    :host([checked]) .visual-box {
+      background: var(--eui-color-secondary-base);
+      border-color: var(--eui-color-secondary-base);
     }
-    input:checked + .visual-box,
-    input:indeterminate + .visual-box {
-      background:var(--eui-color-secondary-base,#018786);
-      border-color:var(--eui-color-secondary-base,#018786);
+
+    :host(:hover:not([disabled])) .visual-box {
+      background: var(--eui-color-secondary-hover);
+      border-color: var(--eui-color-secondary-hover);
     }
-    label:hover input:not(:disabled) + .visual-box {
-      background:var(--eui-color-secondary-hover,#016d6c);
+
+    :host([checked]:hover:not([disabled])) .visual-box {
+      background: var(--eui-color-secondary-hover);
+      border-color: var(--eui-color-secondary-hover);
     }
-    input:not(:disabled):active + .visual-box {
-      background:var(--eui-color-secondary-active,#014a49);
+
+    :host([disabled]) {
+      pointer-events: none;
+      opacity: var(--eui-color-secondary-disabled);
     }
-    input:disabled + .visual-box {
-      background:var(--eui-color-secondary-disabled,#ccc);
-      border-color:var(--eui-color-secondary-disabled,#ccc);
-      cursor:default;
+
+    :host(:focus-within) .visual-box {
+      outline: var(--eui-outline-focus);
+      outline-offset: 2px;
     }
-    input:focus-visible + .visual-box {
-      outline:var(--eui-outline-focus,2px solid #2962ff);
-      outline-offset:2px;
+
+    .check-icon {
+      display: none;
     }
-    .mark {
-      width:12px;
-      height:12px;
-      display:none;
+
+    :host([checked]) .check-icon {
+      display: block;
     }
-    .mark .check,
-    .mark .dash { display:none; }
-    input:checked + .visual-box .mark,
-    input:indeterminate + .visual-box .mark { display:block; }
-    input:checked + .visual-box .mark .check { display:block; }
-    input:indeterminate + .visual-box .mark .dash { display:block; }
-    .ripple {
-      position:absolute;
-      border-radius:50%;
-      background:currentColor;
-      opacity:0.15;
-      transform:scale(0);
-      animation:ripple 600ms ease-out;
-      pointer-events:none;
-    }
-    @keyframes ripple { to { transform:scale(2); opacity:0; } }
   </style>
-  <label class="container">
-    <input type="checkbox" />
-    <span class="visual-box">
-      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
-        <path class="check" d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="3"/>
-        <path class="dash" d="M4 12h16" fill="none" stroke="currentColor" stroke-width="3"/>
-      </svg>
-    </span>
-    <span class="label-text"><slot></slot></span>
+
+  <label class="checkbox-wrapper">
+    <input type="checkbox">
+    <div class="visual-box">
+      <slot name="icon" class="check-icon">✓</slot>
+    </div>
+    <slot></slot>
   </label>
 `;
 
 export class EUICheckbox extends EUIBaseElement {
   static get observedAttributes() {
-    return [...super.observedAttributes, 'checked', 'indeterminate', 'label', 'variant'];
+    return [...super.observedAttributes, 'checked', 'indeterminate', 'label', 'variant', 'name', 'value', 'disabled'];
   }
 
   constructor() {
@@ -136,6 +127,15 @@ export class EUICheckbox extends EUIBaseElement {
       case 'label':
         this._ensureSlotContent('slot', this.label);
         break;
+      case 'name':
+        this._input.name = newValue || '';
+        break;
+      case 'value':
+        this._input.value = newValue || 'on';
+        break;
+      case 'disabled':
+        this._input.disabled = this.disabled;
+        break;
     }
   }
 
@@ -150,6 +150,15 @@ export class EUICheckbox extends EUIBaseElement {
 
   get variant() { return this.getAttribute('variant'); }
   set variant(v) { v === null ? this.removeAttribute('variant') : this.setAttribute('variant', v); }
+
+  get name() { return this.getAttribute('name'); }
+  set name(v) { v === null ? this.removeAttribute('name') : this.setAttribute('name', v); }
+
+  get value() { return this.getAttribute('value'); }
+  set value(v) { v === null ? this.removeAttribute('value') : this.setAttribute('value', v); }
+
+  get disabled() { return this.hasAttribute('disabled'); }
+  set disabled(v) { v ? this.setAttribute('disabled', '') : this.removeAttribute('disabled'); }
 
   handleChange() {
     this.checked = this._input.checked;
@@ -185,6 +194,9 @@ export class EUICheckbox extends EUIBaseElement {
     this._ensureSlotContent('slot', this.label);
     this._input.checked = this.checked;
     this._input.indeterminate = this.indeterminate;
+    this._input.name = this.name || '';
+    this._input.value = this.value || 'on';
+    this._input.disabled = this.disabled;
   }
 }
 
