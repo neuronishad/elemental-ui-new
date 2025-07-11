@@ -73,13 +73,13 @@ template.innerHTML = `
     }
   </style>
 
-  <label class="checkbox-wrapper">
+ <label class="checkbox-wrapper">
     <input type="checkbox">
     <div class="visual-box">
       <slot name="icon" class="check-icon">✓</slot>
     </div>
-    <slot></slot>
   </label>
+  <slot></slot>
 `;
 
 export class EUICheckbox extends EUIBaseElement {
